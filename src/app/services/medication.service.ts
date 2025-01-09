@@ -18,15 +18,17 @@ export class MedicationService {
   constructor(private db: AngularFirestore) {
     
   }
-  getAll(): Observable<any> {
-     return this.db.collection('medications').snapshotChanges().pipe(
-            (actions: any) => {
-        return actions.map((a: any) => {
-          const data = a.payload.doc.data(); // User data
-          const id = a.payload.doc.id; // User document ID
-          return { id, ...data }; // Return an object with both the ID and data
-        });
-      })
+  getAll() {
+    // firebase
+    //  return this.db.collection('medications').snapshotChanges().pipe((actions: any) => {
+    //     return actions.map((a: any) => {
+    //       const data = a.payload.doc.data(); // User data
+    //       const id = a.payload.doc.id; // User document ID
+    //       return { id, ...data }; // Return an object with both the ID and data
+    //     });
+    //   })
+      // localstorage
+    return this.medications;
   }
   // Simuler une recherche dans une API
   searchMedication(query: string): Observable<any[]> {
@@ -66,12 +68,14 @@ export class MedicationService {
       if (data) {
         favoris = data;
         favoris.push(item);
-      } else {
+      }
+      else {
         favoris.push(item);
       }
       try {
         localStorage.setItem('medfav', JSON.stringify(favoris));
-      } catch (error) {
+      }
+      catch (error) {
         console.log("MedError", error);
       }
   }

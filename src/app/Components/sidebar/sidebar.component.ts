@@ -18,7 +18,7 @@ export class SidebarComponent {
   }
   open(item: string) {
     this.route.navigate([item], {
-      state: { data : "med" }
+      state: { data : item }
     });
   }
   

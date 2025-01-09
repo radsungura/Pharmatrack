@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class UserService {
     { name: 'diacre', type: "user",  fullname: 'Diacre RUKUNDO', email: 'rukunddiacre@gmail.com', pass: '123' },
     { name: 'lion', type: "admin",  fullname: 'Lion RUKUNDO', email: 'rukundolion@gmail.com', pass: '123' }
   ]
-  constructor(public route: Router, private afAuth: AngularFireAuth ) { }
+  constructor(public route: Router, private afAuth: AngularFireAuth, private db: AngularFirestore ) { }
   
   login(item: any) {
     let error = false;
@@ -64,5 +65,34 @@ export class UserService {
     } else {
       return false;
     }
+  }
+  getUsers() {
+    const data =  localStorage.getItem('medusers');
+    const res = data? JSON.parse(data): {};
+    return res;
+  }
+  register(item: any) {
+  // localstorage
+    let users: any = [];
+    let success = true;
+    const res = this.getUsers()
+    const data: any = res;
+    if (data) {
+      users = data;
+      users.push(item);
+    }
+    else {
+      users.push(item);
+    }
+    try {
+      localStorage.setItem('medusers', JSON.stringify(users));
+    }
+    catch (error) {
+      console.log("MedError", error);
+      success = false;
+    }
+    return success;
+  //firebasestorage
+    // this.db.collection('users');  
   }
 }

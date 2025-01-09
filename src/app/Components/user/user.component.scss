@@ -5,6 +5,10 @@
     background: #08244133;
     width: 20%;
 }
+.register{
+  margin: 20px auto;
+    padding: 20px 50px;
+}
 .field{
     display: grid;
     // margin: 20px;
@@ -36,13 +40,20 @@ input{
   border-radius: 5px;
 //   position: fixed;
 }
-.register{
+.clear{
   background-color: #4c8bdf;
- 
 }
 .login{
   background-color: #01a149;
 }
 .form-error{
   color: red;
+}
+.login-span{
+  color: #4c8bdf;
+    text-decoration: underline;
+    cursor: pointer;
+    top: 10px;
+    position: relative;
+    left: 78%;
 }

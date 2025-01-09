@@ -31,10 +31,10 @@ constructor(public route: Router, public Umed: MedicationService, public locatio
   });
   }
   edit(item: any) {
-  item.cat = "med";
-  this.route.navigate(['edit'], {
-    state: { data: item }
-  });
+    item.cat = "med";
+    this.route.navigate(['edit'], {
+      state: { data: item }
+    });
   }
    delete(item: any) {
      const decision = confirm("You are about to detete" + item.name + "!");

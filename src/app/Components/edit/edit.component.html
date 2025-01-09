@@ -1,4 +1,4 @@
-<div *ngIf="display == 'form-med'" class="main card">
+<div *ngIf="display == 'form-med'" class="main card edit-form">
     <button class="close-btn" (click)="open()">X</button>
     <div class="title">
         <h4>Add New Medecine</h4>
@@ -13,10 +13,6 @@
             <input name="uname" [(ngModel)]="med.name" type="text" required>
         </div>
         <div class="field">
-            <label for="name">Descriptions</label>
-            <input name="upass" [(ngModel)]="med.desc" type="text" required>
-        </div>
-        <div class="field">
             <label for="uname">Quantity</label>
             <input name="uname" [(ngModel)]="med.qty" type="number" required>
         </div>
@@ -27,6 +23,10 @@
         <div class="field">
             <label for="uname">Quantity</label>
             <input name="uname" [(ngModel)]="med.qty" type="number" required>
+        </div>
+        <div class="field">
+            <label for="name">Descriptions</label>
+            <textarea name="upass" [(ngModel)]="med.desc" type="text" required></textarea>
         </div>
         <div class="footer">
             <button type="submit" class="register btn" (click)="med = {}; editMed()">Clear</button>

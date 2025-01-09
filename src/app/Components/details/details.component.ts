@@ -51,7 +51,6 @@ export class DetailsComponent implements OnInit{
       console.log(this.pharma);
     }
     else {
-      
     }
     console.log('state', history.state.data);
   }

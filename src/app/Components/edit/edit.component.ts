@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
-export class EditComponent {
+export class EditComponent implements OnInit{
 display: string = "form-med";
   med: any;
   allMed: any;
@@ -34,9 +34,17 @@ display: string = "form-med";
   editMed() {
     this.db.collection('medications').valueChanges().subscribe((el: any) => {
       this.allMed = el;
-    console.log("medication", this.allMed);
-
+      console.log("medication", this.allMed);
      })
+  }
+  ngOnInit() {
+    const params = history.state.data;
+    console.log("pamas", params);
+    if (params.cat == 'med') {
+      this.med = params
+    } else {
+      
+    }
     
   }
 }
