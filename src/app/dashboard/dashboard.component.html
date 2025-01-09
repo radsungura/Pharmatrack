@@ -1,0 +1,23 @@
+
+<div class="dashboard-container">
+        <!-- Main Content -->
+    <main class="main-content">
+        <header class="dashboard-header">
+            <h1>Dashboard</h1>
+        </header>
+        <section class="stats-section" (click)="open('medication')">
+            <div class="stat-card">
+                <h3>{{ med }}</h3>
+                <p>Medications</p>
+            </div>
+            <div class="stat-card" (click)="open('pharmacy')">
+                <h3>{{ pharma }}</h3>
+                <p>Pharmacies</p>
+            </div>
+            <div class="stat-card" *ngIf="Uservice.getLoged()" (click)="open('favorite')">
+                <h3>{{ fav }}</h3>
+                <p>Favorites</p>
+            </div>
+        </section>
+    </main>
+</div>

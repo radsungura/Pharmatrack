@@ -1,0 +1,45 @@
+<div *ngIf="display == 'login'" class="main card">
+    <div class="title">
+        <h4>Login</h4>
+    </div>
+    <div class="form">
+        <div class="field">
+            <label for="uname">UserName</label>
+            <input name="uname" [(ngModel)]="user.name" type="text" required>
+        </div>
+        <div class="field">
+            <label for="name">Password</label>
+            <input name="upass" [(ngModel)]="user.pass" type="password" required>
+        </div>
+        <div class="field">
+            <label *ngIf="loged" class="form-error">Incorrect Credentials !</label>
+        </div>
+        <div class="footer">
+            <button type="submit" class="register btn" (click)="display = 'register'">Register</button>
+            <button type="submit" class="login btn" (click)="login(user)">Login</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="display == 'register'" class="main">
+    <div class="title">
+        <h4>Register</h4>
+    </div>
+    <div class="form">
+        <div class="field">
+            <label for="uname">UserName</label>
+            <input name="uname" [(ngModel)]="user.name" type="text" required>
+        </div>
+        <div class="field">
+            <label for="name">Password</label>
+            <input name="upass" [(ngModel)]="user.pass" type="password" required>
+        </div>
+        <div class="field">
+            <label *ngIf="loged" class="form-error" >Incorrect Credentials !</label>
+        </div>
+        <div class="footer">
+            <button type="submit" class="register btn" (click)="register(user)">Register</button>
+            <button type="submit" class="login btn" (click)="display = 'login'">Login</button>
+        </div>
+    </div>
+</div>

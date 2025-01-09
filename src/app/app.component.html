@@ -1,0 +1,15 @@
+<div class="container">
+    <app-sidebar></app-sidebar>
+    <div class="main-content">
+        <div class="nav">
+            <h2 class="text mobile-title">PharmaTrack</h2>
+            <h2 *ngIf="Uservice.getLoged()" class="name">{{Uservice.getUser().name}}</h2>
+            <h2 *ngIf="!Uservice.getLoged()" class="name"></h2>
+            <button *ngIf="Uservice.getLoged()" class="logout-button" (click)="Uservice.logout()">Logout</button>
+            <button *ngIf="!Uservice.getLoged()" class="login-button" (click)="open('login')">Login</button>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+

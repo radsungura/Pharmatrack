@@ -1,0 +1,65 @@
+.card {
+  margin: 50px;
+  padding: 50px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #e2f2ff;
+.container{
+    display: flex;
+    // justify-content: space-between;
+    .img{
+        font-size: 100px;
+        img{
+           width: 100%;
+        }
+    }
+}
+}
+
+.title {
+  font-size: 20px;
+font-weight: bolder;
+}
+p {
+  font-size: 20px;
+  color: #666;
+  display: grid;
+  
+}
+label{
+    font-weight: bold;
+    color: black;
+    font-size: medium;
+}
+//   buttons
+.btn {
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.back {
+background-color: #003669;
+}
+.add-fav {
+background-color: #bd0000;
+}
+.phone {
+background-color: #006946;
+}
+.left{
+    float: left;
+    margin: 20px;
+}
+.right{
+    float: right;
+    display: grid;
+}

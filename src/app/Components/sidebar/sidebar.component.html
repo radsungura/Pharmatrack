@@ -1,0 +1,20 @@
+<div>
+    <aside id="sidebar" class="sidebar" [ngClass]="{'sidebar-open': isSidebarVisible, 'hidden': !isSidebarVisible}">
+        
+        <div class="header" (click)="toggle()">
+            <h2 class="text">Pharmatrack</h2>
+            <!-- <button class="menu-toggle" >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button> -->
+        </div>
+        <ul>
+            <li>💊 <span class="text">Medications</span></li>
+            <li>🏥 <span class="text">Pharmacy</span></li>
+            <li>🔍 <span class="text">Ilness</span></li>
+            <li>⚙️ <span class="text" (click)="open('add')">Data</span></li>
+        </ul>
+    </aside>
+</div>
+    

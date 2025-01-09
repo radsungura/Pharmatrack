@@ -1,0 +1,39 @@
+<button class="back-button" (click)="goBack()">Back</button>
+<div class="main">
+    <h2>Medication Search</h2>
+    <input type="text" [(ngModel)]="searchQuery" 
+    (input)="searchMedications()" 
+    placeholder="Medication name..."
+        class="search-input" />
+    <div *ngIf="searchQuery" class="search-container">
+
+        <div *ngIf="isLoading" class="loading-spinner">
+            <p>Loading...</p>
+        </div>
+
+        <div *ngIf="search.length > 0">
+            <!-- <h3>Result :</h3> -->
+            <ul>
+                <li *ngFor="let medication of search" (click)="details(medication)">
+                    <h4>{{ medication.name }}</h4>
+                    <!-- <p>{{ medication.desc }}</p> -->
+                </li>
+            </ul>
+        </div>
+
+        <div *ngIf="medications.length === 0 && !isLoading">
+            <p>No medication found.</p>
+        </div>
+    </div>
+    <div class="list">
+        <div *ngIf="medications.length > 0">
+            <!-- <h3>Result :</h3> -->
+            <ul>
+                <li *ngFor="let medication of medications" (click)="details(medication)">
+                    <h4>{{ medication.name }}</h4>
+                    <p>{{ medication.desc }}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<button class="back btn" (click)="goBack()">Back</button>
+<div *ngIf="display == 'medication'" class="card">
+    <div class="buttons">
+            <div class="right">
+                <button class="add-fav btn" (click)="addFavorite(med)">Add to Favorite</button>
+                <button class="phone btn" (click)="goBack()">Contact Seller</button>
+            </div>
+    </div>
+    <div class="title">{{ med.name }}</div>
+    <div class="container">
+        <div class="img">
+            <!-- <img src="../../../favicon.ico"> -->
+        </div>
+        <p>
+            <span><label>Pharmacy:</label> {{ med.pharma.name }}</span>
+            <span><label>Quantity:</label> {{ med.qty }}</span>
+            <span><label>Description: </label> {{ med.desc }}</span>
+            <span><label>Address:</label>{{ med.pharma.address }}</span>
+        </p>
+    </div>
+</div>
+<div *ngIf="display == 'pharmacy'" class="card">
+    <div class="buttons">
+        <div class="right">
+            <!-- <button class="add-fav btn" (click)="addFavorite(med)">Add to Favorite</button> -->
+            <button class="phone btn" (click)="goBack()">Contact</button>
+        </div>
+    </div>
+    <div class="title">{{ pharma.name }}</div>
+    <div class="container">
+        <div class="img">
+            <span>🏥</span>
+        </div>
+        <p>
+            <span><label>Name:</label> {{ pharma.name }}</span>
+            <span><label>Address:</label>{{ pharma.address }}</span>
+            
+        </p>
+        
+    </div>
+    <span *ngIf="pharma.med.length > 0">
+        <!-- <h3>Result :</h3> -->
+        <ul>
+            <label style="color: rgb(6, 100, 6);">Medications</label>
+            <li *ngFor="let medication of pharma.med">
+                <h4>{{ medication.name }}</h4>
+                <p>{{ medication.desc }}</p>
+            </li>
+        </ul>
+    </span>
+</div>

@@ -1,0 +1,32 @@
+<div *ngIf="display == 'form-med'" class="main card">
+    <button class="close-btn" (click)="open()">X</button>
+    <div class="title">
+        <h4>Add New Medecine</h4>
+    </div>
+    <div class="form">
+        <div class="field">
+            <label for="uname">Code</label>
+            <input name="uname" [(ngModel)]="med.Id" type="text" required>
+        </div>
+        <div class="field">
+            <label for="uname">Name</label>
+            <input name="uname" [(ngModel)]="med.name" type="text" required>
+        </div>
+        <div class="field">
+            <label for="name">Descriptions</label>
+            <input name="upass" [(ngModel)]="med.desc" type="text" required>
+        </div>
+        <div class="field">
+            <label for="uname">Quantity</label>
+            <input name="uname" [(ngModel)]="med.qty" type="number" required>
+        </div>
+        <div class="field">
+            <label for="uname">Pharmacy</label>
+            <input name="uname" [(ngModel)]="med.pharma" type="text" required>
+        </div>
+        <div class="footer">
+            <button type="submit" class="register btn" (click)="med = {}; editMed()">Clear</button>
+            <button type="submit" class="login btn" (click)="save(med)">Save</button>
+        </div>
+    </div>
+</div>
