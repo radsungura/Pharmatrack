@@ -30,6 +30,7 @@
                     <label (click)="details(medication)">
                         <h4>{{ medication.name }}</h4>
                         <p>{{ medication.desc }}</p>
+                        <span class="title">{{medication.price}} $</span>
                     </label> 
                     <button class="btn close" (click)="delete(medication)">X</button>
                 </li>

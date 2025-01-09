@@ -17,7 +17,6 @@ export class SidebarComponent {
     this.isSidebarVisible = !this.isSidebarVisible;
   }
   open(item: string) {
-    alert(item)
     this.route.navigate([item], {
       state: { data : "med" }
     });

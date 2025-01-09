@@ -8,6 +8,7 @@ import { UserComponent } from './Components/user/user.component';
 import { AddComponent } from './Components/add/add.component';
 import { AdminComponent } from './admin/admin.component';
 import { FavoriteComponent } from './Components/favorite/favorite.component';
+import { EditComponent } from './Components/edit/edit.component';
 
 const routes: Routes = [
     {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserComponent
+  },
+  {
+    path: 'edit',
+    component: EditComponent
   },
   {
     path: 'favorite',

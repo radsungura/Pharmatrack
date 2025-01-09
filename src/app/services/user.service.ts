@@ -7,18 +7,19 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class UserService {
   users = [
-    { name: 'rad', fullname: 'Aime RUKUNDO', email: 'rukundaime@gmail.com', pass: '123' },
-    { name: 'diacre', fullname: 'Diacre RUKUNDO', email: 'rukunddiacre@gmail.com', pass: '123' },
-    { name: 'lion', fullname: 'Lion RUKUNDO', email: 'rukundolion@gmail.com', pass: '123' }
+    { name: 'rad', type: "user",  fullname: 'Aime RUKUNDO', email: 'rukundaime@gmail.com', pass: '123' },
+    { name: 'diacre', type: "user",  fullname: 'Diacre RUKUNDO', email: 'rukunddiacre@gmail.com', pass: '123' },
+    { name: 'lion', type: "admin",  fullname: 'Lion RUKUNDO', email: 'rukundolion@gmail.com', pass: '123' }
   ]
   constructor(public route: Router, private afAuth: AngularFireAuth ) { }
+  
   login(item: any) {
     let error = false;
     const connect = item;
     const check = this.users.find(el =>  el.name == connect.name && el.pass == connect.pass);
 
     if (check) {
-      localStorage.setItem('meduser', JSON.stringify(connect));
+      localStorage.setItem('meduser', JSON.stringify(check));
       alert("Successfull connected !");
       this.route.navigate(['dashboard']);
       error = false;
@@ -53,7 +54,7 @@ export class UserService {
   }
   getUser() {
     const data: any = localStorage.getItem('meduser');
-    const user = JSON.parse(data);
+    const user = JSON.parse(data);    
     return user;
   }
   getLoged() {

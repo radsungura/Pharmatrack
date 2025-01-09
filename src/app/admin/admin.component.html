@@ -1,51 +1,39 @@
 <div class="dashboard-container">
     <!-- Main Content -->
-    <main class="main-content">
+    
+    <main *ngIf="display == 'medications'" class="main-content table-section">
+        <button class="back" (click)="goBack()">Back</button>
+        
         <header class="dashboard-header">
-            <h1>Dashboard</h1>
+            <h1>Medications</h1>
+        <button class="back" (click)="goBack()"> + New</button>
+
         </header>
-        <section class="stats-section" (click)="open('medication')">
-            <div class="stat-card">
-                <h3>200</h3>
-                <p>Medications</p>
-            </div>
-            <div class="stat-card" (click)="open('pharmacy')">
-                <h3>50</h3>
-                <p>Pharmacies</p>
-            </div>
-            <div class="stat-card">
-                <h3>30</h3>
-                <p>Favorites</p>
-            </div>
-        </section>
-        <section class="quick-actions">
-            <h2>Actions rapides</h2>
-            <button class="action-button" (click)="open('add')">Ajouter un médicament</button>
-            <button class="action-button" (click)="open('medication')">Rechercher une pharmacie</button>
-        </section>
-    </main>
-    <section>
         <table class="table">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
                     <th>Id</th>
-                    <th>qty</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of med; let i = index">
                     <td>{{ i + 1 }}</td>
+                    <td>{{ item.Id }}</td>
                     <td>{{ item.name }}</td>
-                    <td>{{ item.email }}</td>
                     <td>{{ item.qty }}</td>
+                    <td>{{ item.price }}</td>
                     <td>
-                        <button class="btn">X</button>
+                        <button class="btn see" (click)="details(item)">More</button>
+                        <button class="btn edit" (click)="edit(item)">Edit</button>
+                        <button class="btn delete" (click)="delete(item)">Delete</button>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </section>
+    </main>
 </div>

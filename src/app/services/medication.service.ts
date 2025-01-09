@@ -8,29 +8,25 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class MedicationService {
   // Liste de médicaments fictive pour simuler la recherche
   medications = [
-    { Id: 'Asp', name: 'Aspirin', desc: 'Used to reduce pain, fever, or inflammation.', qty: 8, pharma: 'Plus' },
-    { Id: 'Ibu', name: 'Ibuprofen', desc: 'Nonsteroidal anti-inflammatory drug (NSAID).', qty: 10, pharma: 'Central' },
-    { Id: 'Par', name: 'Paracetamol', desc: 'Used to treat mild to moderate pain and reduce fever.', qty: 15, pharma: 'Sun' },
-    { Id: 'Amo', name: 'Amoxicillin', desc: 'Antibiotic used to treat bacterial infections.', qty: 17, pharma: 'Gare' }
+    { Id: 'Asp',price: 5000, name: 'Aspirin', desc: 'Used to reduce pain, fever, or inflammation.', qty: 8, pharma: 'Plus' },
+    { Id: 'Ibu',price: 2000, name: 'Ibuprofen', desc: 'Nonsteroidal anti-inflammatory drug (NSAID).', qty: 10, pharma: 'Central' },
+    { Id: 'Par',price: 3000, name: 'Paracetamol', desc: 'Used to treat mild to moderate pain and reduce fever.', qty: 15, pharma: 'Sun' },
+    { Id: 'Amo',price: 1000, name: 'Amoxicillin', desc: 'Antibiotic used to treat bacterial infections.', qty: 17, pharma: 'Gare' }
   ];
   allMed: any;
   med: any;
   constructor(private db: AngularFirestore) {
-    try {
-      this.db.collection('medications').valueChanges().subscribe((el: any) => {
-        if (el.lenght > 0) {
-          console.log("empty", el.lenght);
-          
-          this.medications = el;
-        }
-      })
-    } catch (error) {
-      console.error("error", error);
-    }
+    
   }
-  getAll() {
-    const res = this.medications;
-    return res; // Retourner un Observable
+  getAll(): Observable<any> {
+     return this.db.collection('medications').snapshotChanges().pipe(
+            (actions: any) => {
+        return actions.map((a: any) => {
+          const data = a.payload.doc.data(); // User data
+          const id = a.payload.doc.id; // User document ID
+          return { id, ...data }; // Return an object with both the ID and data
+        });
+      })
   }
   // Simuler une recherche dans une API
   searchMedication(query: string): Observable<any[]> {
@@ -53,19 +49,13 @@ export class MedicationService {
   }
   getFavorite(item: string) {
     const data: any = localStorage.getItem('medfav');
-    console.log("get", item, JSON.parse(data));
-    
     let fav: any;
     if (data) {
       fav = JSON.parse(data).filter((el: any) => el.user === item );
-    console.log("get", item, fav);
-
       return fav;
     } else {
       fav = {};
     }
-    console.log("getfav", fav);
-    
     return fav;
   }
   addFavorite(item: any) {
@@ -95,5 +85,14 @@ export class MedicationService {
       favoris = seted;
     } 
     return favoris;
+  }
+  delete(item: any) {
+    this.db.collection('medications').doc(item.Id).delete()
+      .then(() => {
+        console.log('Document successfully deleted!');
+      })
+      .catch((error) => {
+        console.error('Error deleting document: ', error);
+      });
   }
 }

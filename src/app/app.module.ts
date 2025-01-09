@@ -19,6 +19,7 @@ import { AddComponent } from './Components/add/add.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AdminComponent } from './admin/admin.component';
 import { FavoriteComponent } from './Components/favorite/favorite.component';
+import { EditComponent } from './Components/edit/edit.component';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -44,7 +45,8 @@ const firebaseConfig = {
     NotificationsComponent,
     AddComponent,
     AdminComponent,
-    FavoriteComponent
+    FavoriteComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,
