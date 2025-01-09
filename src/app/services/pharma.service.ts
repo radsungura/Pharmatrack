@@ -6,10 +6,10 @@ import { Observable, of } from 'rxjs';
 })
 export class PharmaService {
 pharmacies = [
-      { Id: 'Plus', name: 'Plus Pharma', address: '123 Rue de Paris, Paris' },
-      { Id: 'Sun', name: 'Sun Pharma', address: '456 Boulevard Saint-Germain, Paris' },
-      { Id: 'Gare', name: 'Gare Pharma', address: '789 Avenue de la Gare, Lyon' },
-      { Id: 'Central', name: 'Central Pharma', address: '101 Rue de la Liberté, Marseille' }
+      { Id: 'Plus',tel: 71345077, name: 'Plus Pharma', address: '123 Rue de Paris, Paris' },
+      { Id: 'Sun',tel: 61607690, name: 'Sun Pharma', address: '456 Boulevard Saint-Germain, Paris' },
+      { Id: 'Gare',tel: 71255077, name: 'Gare Pharma', address: '789 Avenue de la Gare, Lyon' },
+      { Id: 'Central',tel: 71358077, name: 'Central Pharma', address: '101 Rue de la Liberté, Marseille' }
     ];
   constructor() { }
 
