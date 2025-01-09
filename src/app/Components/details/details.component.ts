@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit{
+  tel: boolean = false;
   med: any;
   pharma: any;
   user: any;
@@ -28,6 +29,10 @@ export class DetailsComponent implements OnInit{
     } 
     item.user = this.user.name;
     this.medservice.addFavorite(item);
+  }
+  contact() {
+    alert('contact seller on: ' + this.pharma.tel)
+    this.tel = true;
   }
   async ngOnInit() {
     const data = history.state.data;
