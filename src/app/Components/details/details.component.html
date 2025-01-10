@@ -26,8 +26,11 @@
     <div class="buttons">
         <div class="right">
             <!-- <button class="add-fav btn" (click)="addFavorite(med)">Add to Favorite</button> -->
-            <button class="phone btn" (click)="contact()">Contact</button>
-            <div *ngIf="tel" class="title">{{ pharma.tel }}</div>
+            <!-- <button class="phone btn" (click)="contact()">Contact</button>
+            <div *ngIf="tel" class="title">{{ pharma.tel }}</div> -->
+            <button *ngIf="user.type == 'user'" class="phone btn" (click)="contact()">Tel</button>
+            <button *ngIf="user.type == 'admin'" class="phone btn" (click)="contact()">{{ pharma.tel }}</button>
+            <div *ngIf="tel && user.type == 'user'" class="title">{{ med.pharma.tel }}</div>
 
         </div>
     </div>

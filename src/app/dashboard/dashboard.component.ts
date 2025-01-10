@@ -28,7 +28,7 @@ export class DashboardComponent {
     }
     
   }
-  open(item: string) {
-    this.route.navigate([item]);
+  open(item: string, cat: string) {
+     this.route.navigate([item], { state: { data: cat } });
   }
 }

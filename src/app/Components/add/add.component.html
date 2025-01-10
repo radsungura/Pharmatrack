@@ -1,5 +1,5 @@
-<div *ngIf="display == 'form-med'" class="main card add-form">
-    <button class="close-btn" (click)="open()">X</button>
+<div *ngIf="display == 'medication'" class="main card add-form">
+    <button class="close-btn" (click)="navigate('admin', 'medications')">X</button>
     <div class="title">
         <h4>Add New Medecine</h4>
     </div>
@@ -35,6 +35,63 @@
         <div class="footer">
             <button type="submit" class="register btn" (click)="med = {}; editMed()">Clear</button>
             <button type="submit" class="login btn" (click)="save(med)">Save</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="display == 'pharmacy'" class="main card add-form">
+    <button class="close-btn" (click)="navigate('admin', 'pharmacies')">X</button>
+    <div class="title">
+        <h4>Add New Pharmacy</h4>
+    </div>
+    <div class="form">
+        <div class="field">
+            <label for="uname">Code</label>
+            <input name="uname" [(ngModel)]="pharma.code" type="text" required>
+        </div>
+        <div class="field">
+            <label for="uname">Name</label>
+            <input name="uname" [(ngModel)]="pharma.name" type="text" required>
+        </div>
+        <div class="field">
+            <label for="uname">Tel</label>
+            <input name="uname" [(ngModel)]="pharma.tel" type="phone" required>
+        </div>
+        <div class="field">
+            <label for="uname">Address</label>
+            <input name="uname" [(ngModel)]="pharma.address" type="number" required>
+        </div>
+        <div class="footer">
+            <button type="submit" class="register btn" (click)="pharma = {}; editMed()">Clear</button>
+            <button type="submit" class="login btn" (click)="savePharma(pharma)">Save</button>
+        </div>
+    </div>
+</div>
+    <!-- users management -->
+<div *ngIf="display == 'user'" class="main card add-form">
+    <button class="close-btn" (click)="navigate('admin', 'pharmacies')">X</button>
+    <div class="title">
+        <h4>Add New User</h4>
+    </div>
+    <div class="form">
+        <div class="field">
+            <label for="uname">Code</label>
+            <input name="uname" [(ngModel)]="pharma.code" type="text" required>
+        </div>
+        <div class="field">
+            <label for="uname">Name</label>
+            <input name="uname" [(ngModel)]="pharma.name" type="text" required>
+        </div>
+        <div class="field">
+            <label for="uname">Tel</label>
+            <input name="uname" [(ngModel)]="pharma.tel" type="phone" required>
+        </div>
+        <div class="field">
+            <label for="uname">Address</label>
+            <input name="uname" [(ngModel)]="pharma.address" type="number" required>
+        </div>
+        <div class="footer">
+            <button type="submit" class="register btn" (click)="pharma = {}; editMed()">Clear</button>
+            <button type="submit" class="login btn" (click)="savePharma(pharma)">Save</button>
         </div>
     </div>
 </div>

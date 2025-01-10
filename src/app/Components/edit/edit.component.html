@@ -1,7 +1,7 @@
-<div *ngIf="display == 'form-med'" class="main card edit-form">
-    <button class="close-btn" (click)="open()">X</button>
+<div *ngIf="display == 'medications'" class="main card edit-form">
+    <button class="close-btn" (click)="open('medications')">X</button>
     <div class="title">
-        <h4>Add New Medecine</h4>
+        <h4>Modify Medication</h4>
     </div>
     <div class="form">
         <div class="field">
@@ -31,6 +31,34 @@
         <div class="field">
             <label for="name">Descriptions</label>
             <textarea name="upass" [(ngModel)]="med.desc" type="text" required></textarea>
+        </div>
+        <div class="footer">
+            <button type="submit" class="register btn" (click)="med = {}; editMed()">Clear</button>
+            <button type="submit" class="login btn" (click)="save(med)">Save</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="display == 'pharmacy'" class="main card edit-form">
+    <button class="close-btn" (click)="open('pharmacies')">X</button>
+    <div class="title">
+        <h4>Modify Pharmacy</h4>
+    </div>
+    <div class="form">
+        <div class="field">
+            <label for="uname">Code</label>
+            <input name="uname" [(ngModel)]="pharma.code" type="text" required>
+        </div>
+        <div class="field">
+            <label for="uname">Name</label>
+            <input name="uname" [(ngModel)]="pharma.name" type="text" required>
+        </div>
+        <div class="field">
+            <label for="uname">Tel</label>
+            <input name="uname" [(ngModel)]="pharma.tel" type="phone" required>
+        </div>
+        <div class="field">
+            <label for="uname">Address</label>
+            <input name="uname" [(ngModel)]="pharma.address" type="text" required>
         </div>
         <div class="footer">
             <button type="submit" class="register btn" (click)="med = {}; editMed()">Clear</button>

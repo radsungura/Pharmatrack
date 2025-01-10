@@ -10,25 +10,24 @@ import { Router } from '@angular/router';
 export class EditComponent implements OnInit{
 display: string = "form-med";
   med: any;
+  pharma: any;
   allMed: any;
   constructor(public db: AngularFirestore, public route: Router){}
-   open() {
-    this.route.navigate(['admin']);
+   open(item: string) {
+    this.route.navigate(['admin'], { state :{ data: item}});
   }
   save(item: {}) {
-
     if (Object.keys(item).length === 5) {
-
       // Save form data to Firestore
       this.db.collection('medications').add(item)
-        .then(() => {
-          alert('Form data saved successfully!');
-          console.log('Form data saved successfully!');
-          this.med = {};
-        })
-        .catch((error) => {
-          console.error('Error saving form data: ', error);
-        });
+      .then(() => {
+        alert('Form data saved successfully!');
+        console.log('Form data saved successfully!');
+        this.med = {};
+      })
+      .catch((error) => {
+        console.error('Error saving form data: ', error);
+      });
     }
   }
   editMed() {
@@ -42,9 +41,10 @@ display: string = "form-med";
     console.log("pamas", params);
     if (params.cat == 'med') {
       this.med = params
-    } else {
-      
+      this.display = 'medications';
+    } else if(params.cat == 'pharma'){
+      this.pharma = params
+      this.display = 'pharmacy';
     }
-    
   }
 }

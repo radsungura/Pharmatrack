@@ -5,40 +5,40 @@
         <header class="dashboard-header">
             <h1>Management</h1>
         </header>
-        <section class="stats-section" (click)="open('admin')">
+        <section class="stats-section" (click)="open('admin', 'medications')">
             <div class="stat-card">
                 <h3>200</h3>
                 <p>Medications</p>
             </div>
-            <div class="stat-card" (click)="open('pharmacies')">
+            <div class="stat-card" (click)="open('admin', 'pharmacies')">
                 <h3>50</h3>
                 <p>Pharmacies</p>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" (click)="open('admin', 'users')">
                 <h3>30</h3>
                 <p>Favorites</p>
             </div>
         </section>
         <section class="quick-actions">
             <h2>Actions rapides</h2>
-            <button class="action-button" (click)="open('add')">Ajouter un médicament</button>
-            <button class="action-button" (click)="open('medication')">Rechercher une pharmacie</button>
+            <button class="action-button" (click)="open('add', 'medications')">Ajouter un médicament</button>
+            <button class="action-button" (click)="open('medication', 'medications')">Rechercher une pharmacie</button>
         </section>
     </main>
     <main *ngIf="display == 'user'" class="main-content">
         <header class="dashboard-header">
             <h1>Dashboard</h1>
         </header>
-        <section class="stats-section" (click)="open('medication')">
+        <section class="stats-section" (click)="open('medication', 'medications')">
             <div class="stat-card">
                 <h3>{{ med }}</h3>
                 <p>Medications</p>
             </div>
-            <div class="stat-card" (click)="open('pharmacy')">
+            <div class="stat-card" (click)="open('pharmacy', 'pharmacies')">
                 <h3>{{ pharma }}</h3>
                 <p>Pharmacies</p>
             </div>
-            <div class="stat-card" *ngIf="Uservice.getLoged()" (click)="open('favorite')">
+            <div class="stat-card" *ngIf="Uservice.getLoged()" (click)="open('favorite', 'medications')">
                 <h3>{{ fav }}</h3>
                 <p>Favorites</p>
             </div>
