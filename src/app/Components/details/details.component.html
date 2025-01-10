@@ -2,8 +2,10 @@
 <div *ngIf="display == 'medication'" class="card">
     <div class="buttons">
             <div class="right">
-                <button class="add-fav btn" (click)="addFavorite(med)">Add to Favorite</button>
-                <button class="phone btn" (click)="goBack()">Contact Seller</button>
+                <button *ngIf="user.type == 'user'" class="add-fav btn" (click)="addFavorite(med)">Add to Favorite</button>
+                <button *ngIf="user.type == 'user'" class="phone btn" (click)="contact()">Tel</button>
+                <button *ngIf="user.type == 'admin'" class="phone btn" (click)="contact()">{{ med.pharma.tel }}</button>
+            <div *ngIf="tel && user.type == 'user'" class="title">{{ med.pharma.tel }}</div>
             </div>
     </div>
     <div class="title">{{ med.name }}</div>

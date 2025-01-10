@@ -31,7 +31,7 @@ export class DetailsComponent implements OnInit{
     this.medservice.addFavorite(item);
   }
   contact() {
-    alert('contact seller on: ' + this.pharma.tel)
+    // alert('contact seller on: ' + this.pharma.tel)
     this.tel = true;
   }
   async ngOnInit() {
