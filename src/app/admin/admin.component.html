@@ -80,7 +80,6 @@
                     <th>User Name</th>
                     <th>Full Name</th>
                     <th>E-mail</th>
-                    <th>Tel</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -90,11 +89,10 @@
                     <td>{{ item.name }}</td>
                     <td>{{ item.fullname }}</td>
                     <td>{{ item.mail }}</td>
-                    <td>{{ item.tel }}</td>
                     <td>
-                        <button class="btn see" (click)="Pdetails(item)">More</button>
-                        <button class="btn edit" (click)="Pedit(item)">Edit</button>
-                        <button class="btn delete" (click)="Pdelete(item)">Delete</button>
+                        <button class="btn see" (click)="Udetails(item)">More</button>
+                        <button class="btn edit" (click)="Uedit(item)">Edit</button>
+                        <button class="btn delete" (click)="Udelete(item)">Delete</button>
                     </td>
                 </tr>
             </tbody>

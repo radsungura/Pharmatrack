@@ -31,7 +31,7 @@ export class UserComponent {
             alert("Some fields are not completed correctly !")
       } else {
         item.type = "user";
-        const res = this.Uservice.register(item);
+        const res = this.Uservice.Create(item);
         if (res) {
           this.user = {}
           this.display = 'login';

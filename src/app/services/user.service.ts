@@ -8,9 +8,9 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class UserService {
   users = [
-    { name: 'rad', type: "user",  fullname: 'Aime RUKUNDO', email: 'rukundaime@gmail.com', pass: '123' },
-    { name: 'diacre', type: "user",  fullname: 'Diacre RUKUNDO', email: 'rukunddiacre@gmail.com', pass: '123' },
-    { name: 'lion', type: "admin",  fullname: 'Lion RUKUNDO', email: 'rukundolion@gmail.com', pass: '123' }
+    { name: 'rad', type: "user", tel: '61 607 690',  fullname: 'Aime RUKUNDO', email: 'rukundaime@gmail.com', pass: '123' },
+    { name: 'diacre', type: "user", tel: '61 607 690',  fullname: 'Diacre RUKUNDO', email: 'rukunddiacre@gmail.com', pass: '123' },
+    { name: 'lion', type: "admin", tel: '61 607 690',  fullname: 'Lion RUKUNDO', email: 'rukundolion@gmail.com', pass: '123' }
   ]
   constructor(public route: Router, private afAuth: AngularFireAuth, private db: AngularFirestore ) { }
   
@@ -71,7 +71,12 @@ export class UserService {
     const res = data? JSON.parse(data): {};
     return res;
   }
-  register(item: any) {
+  getById(item: any) {
+    const res = this.getUsers();
+    const data = res ? res.find((el: any) => { el.name == item.name }) : '';
+    return data;
+  }
+  Create(item: any) {
   // localstorage
     let users: any = [];
     let success = true;
@@ -94,5 +99,17 @@ export class UserService {
     return success;
   //firebasestorage
     // this.db.collection('users');  
+  }
+  Delete(item: any) {
+    this.db.collection('users').doc(item.Id).delete()
+      .then(() => {
+        console.log('Document successfully deleted!');
+      })
+      .catch((error) => {
+        console.error('Error deleting document: ', error);
+      });
+  }
+  Update(item: any) {
+    
   }
 }

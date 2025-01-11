@@ -66,3 +66,35 @@
         </div>
     </div>
 </div>
+<div *ngIf="display == 'user'" class="main card edit-form">
+    <button class="close-btn" (click)="open('users')">X</button>
+    <div class="title">
+        <h4>Modify User</h4>
+    </div>
+    <div class="form">
+        <div class="field">
+            <label for="uname">User Name</label>
+            <input name="uname" [(ngModel)]="user.name" type="text" required>
+        </div>
+        <div class="field">
+            <label for="ufull">Full Name</label>
+            <input name="ufull" [(ngModel)]="user.fullname" type="text" required>
+        </div>
+        <div class="field">
+            <label for="umail">E-mail</label>
+            <input name="umail" [(ngModel)]="user.mail" type="email" required>
+        </div>
+        <div class="field">
+            <label for="utel">Phone</label>
+            <input name="utel" [(ngModel)]="user.tel" type="phone" required>
+        </div>
+        <div class="field">
+            <label for="upass">Pass</label>
+            <input name="upass" [(ngModel)]="user.pass" type="password" required>
+        </div>
+        <div class="footer">
+            <button type="reset" class="register btn" (click)="user = {}">Clear</button>
+            <button type="submit" class="login btn" (click)="saveUser(user)">Save</button>
+        </div>
+    </div>
+</div>

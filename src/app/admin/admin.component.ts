@@ -68,17 +68,37 @@ constructor(public route: Router, public Umed: MedicationService,public Uservice
       state: { data: item }
     });
   }
-   Pdelete(item: any) {
-     const decision = confirm("You are about to detete" + item.name + "!");
-     if (decision) {
-     this.Umed.delete(item.Id);
-     } else {
-       
-     }
-   }
+  Pdelete(item: any) {
+    const decision = confirm("You are about to detete" + item.name + "!");
+    if (decision) {
+    this.Umed.delete(item.Id);
+    } else {
+      
+    }
+  }
+  Udetails(item: any) {
+    item.cat = "user";
+    this.route.navigate(['details'], {
+      state: { data: item }
+    });
+  }
+  Uedit(item: any) {
+    item.cat = "user";
+    this.route.navigate(['edit'], {
+      state: { data: item }
+    });
+  }
+  Udelete(item: any) {
+    const decision = confirm("You are about to detete  " + item.name + "  !");
+    if (decision) {
+      this.Uservice.Delete(item.Id);
+    }
+    else {
+      
+    }
+  }
   ngOnInit() {
     this.display = history.state.data? history.state.data: 'medications';
     console.log(this.display);
-    
   }
 }

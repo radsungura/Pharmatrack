@@ -32,7 +32,7 @@ export class DetailsComponent implements OnInit{
   }
   contact() {
     // alert('contact seller on: ' + this.pharma.tel)
-    this.tel = true;
+    this.tel = this.user.tel? true: false;
   }
   async ngOnInit() {
     const data = history.state.data;
@@ -55,8 +55,12 @@ export class DetailsComponent implements OnInit{
       });
       console.log(this.pharma);
     }
+    else if (data.cat == 'user') {
+      this.display = 'user';
+      this.user = data;
+    }
     else {
     }
-    console.log('state', history.state.data);
+    console.log('state', history.state.data, this.user);
   }
 }

@@ -68,30 +68,40 @@
 </div>
     <!-- users management -->
 <div *ngIf="display == 'user'" class="main card add-form">
-    <button class="close-btn" (click)="navigate('admin', 'pharmacies')">X</button>
+    <button class="close-btn" (click)="navigate('admin', 'users')">X</button>
     <div class="title">
         <h4>Add New User</h4>
     </div>
     <div class="form">
         <div class="field">
-            <label for="uname">Code</label>
-            <input name="uname" [(ngModel)]="pharma.code" type="text" required>
+            <label for="uname">User Name</label>
+            <input name="uname" [(ngModel)]="user.name" type="text" required>
         </div>
         <div class="field">
-            <label for="uname">Name</label>
-            <input name="uname" [(ngModel)]="pharma.name" type="text" required>
+            <label for="uname">Full Name</label>
+            <input name="uname" [(ngModel)]="user.fullname" type="text" required>
         </div>
         <div class="field">
-            <label for="uname">Tel</label>
-            <input name="uname" [(ngModel)]="pharma.tel" type="phone" required>
+            <label for="uname">E-mail</label>
+            <input name="uname" [(ngModel)]="user.mail" type="mail" required>
         </div>
         <div class="field">
-            <label for="uname">Address</label>
-            <input name="uname" [(ngModel)]="pharma.address" type="number" required>
+            <label for="name">Password</label>
+            <input name="upass" [(ngModel)]="user.pass" type="password" required>
+        </div>
+        <div class="field">
+            <label for="name">Confirm</label>
+            <input name="upass" [(ngModel)]="user.conf" type="password" required>
+        </div>
+        <div class="field">
+            <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>
+        </div>
+        <div class="field">
+            <label *ngIf="formerror" class="form-error">Some field are not completed correctly !</label>
         </div>
         <div class="footer">
-            <button type="submit" class="register btn" (click)="pharma = {}; editMed()">Clear</button>
-            <button type="submit" class="login btn" (click)="savePharma(pharma)">Save</button>
+            <button type="submit" class="register btn" (click)="user = {}">Clear</button>
+            <button type="submit" class="login btn" (click)="saveUser(user)">Save</button>
         </div>
     </div>
 </div>
