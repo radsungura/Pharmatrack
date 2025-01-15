@@ -49,7 +49,7 @@ export class DetailsComponent implements OnInit{
     else if (data.cat == 'pharma') {
       this.display = 'pharmacy';
       this.pharma = data;
-      let med: any = await this.medservice.byPharma(data.Id).subscribe((el: any) => {
+      let med: any = await this.medservice.byPharma(data.code).subscribe((el: any) => {
         this.pharma.med = el;
         console.log(this.pharma);
       });

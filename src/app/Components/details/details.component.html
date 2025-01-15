@@ -14,10 +14,10 @@
             <!-- <img src="../../../favicon.ico"> -->
         </div>
         <p>
-            <span><label>Pharmacy:</label> {{ med.pharma.name }}</span>
-            <span><label>Quantity:</label> {{ med.qty }}</span>
+            <span><label>Pharmacy: </label> {{ med.pharma.name }}</span>
+            <span><label>Quantity: </label> {{ med.qty }}</span>
             <span><label>Description: </label> {{ med.desc }}</span>
-            <span><label>Address:</label>{{ med.pharma.address }}</span>
+            <span><label>Address: </label> {{ med.pharma.address }}</span>
         </p>
         <span class="title">{{med.price}} $</span>
     </div>
@@ -27,7 +27,7 @@
         <div class="right">
             <button *ngIf="user.type == 'user'" class="phone btn" (click)="contact()">Phone Number</button>
             <button *ngIf="user.type == 'admin'" class="phone btn" (click)="contact()">{{ pharma.tel }}</button>
-            <div *ngIf="tel && user.type == 'user'" class="title">{{ med.pharma.tel }}</div>
+            <div *ngIf="tel && user.type == 'user'" class="title">{{ pharma.tel }}</div>
 
         </div>
     </div>
@@ -43,16 +43,18 @@
         </p>
         
     </div>
+    <label style="color: rgb(6, 100, 6);">Medications</label><br>
+
     <span *ngIf="pharma.med.length > 0">
         <!-- <h3>Result :</h3> -->
         <ul>
-            <label style="color: rgb(6, 100, 6);">Medications</label>
             <li *ngFor="let medication of pharma.med">
                 <h4>{{ medication.name }}</h4>
                 <p>{{ medication.desc }}</p>
             </li>
         </ul>
     </span>
+    <span *ngIf="pharma.med.length == 0"> No Medications found .....</span>
 </div>
 <div *ngIf="display == 'user'" class="card">
     <div class="buttons">

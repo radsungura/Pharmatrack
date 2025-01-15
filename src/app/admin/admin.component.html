@@ -1,6 +1,5 @@
 <div class="dashboard-container">
     <!-- Main Content -->
-    
     <main *ngIf="display == 'medications'" class="main-content table-section">
         <button class="back" (click)="navigate('dashboard', 'admin')">Back</button>
         <header class="dashboard-header">
@@ -27,8 +26,8 @@
                     <td>{{ item.price }}</td>
                     <td>
                         <button class="btn see" (click)="details(item)">More</button>
-                        <button class="btn edit" (click)="edit(item)">Edit</button>
-                        <button class="btn delete" (click)="delete(item)">Delete</button>
+                        <button class="btn edit" (click)="Medit(item)">Edit</button>
+                        <button class="btn delete" (click)="Mdelete(item)">Delete</button>
                     </td>
                 </tr>
             </tbody>

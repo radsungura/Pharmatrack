@@ -8,10 +8,10 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class MedicationService {
   // Liste de médicaments fictive pour simuler la recherche
   medications = [
-    { Id: 'Asp',price: 5000, name: 'Aspirin', desc: 'Used to reduce pain, fever, or inflammation.', qty: 8, pharma: 'Plus' },
-    { Id: 'Ibu',price: 2000, name: 'Ibuprofen', desc: 'Nonsteroidal anti-inflammatory drug (NSAID).', qty: 10, pharma: 'Central' },
-    { Id: 'Par',price: 3000, name: 'Paracetamol', desc: 'Used to treat mild to moderate pain and reduce fever.', qty: 15, pharma: 'Sun' },
-    { Id: 'Amo',price: 1000, name: 'Amoxicillin', desc: 'Antibiotic used to treat bacterial infections.', qty: 17, pharma: 'Gare' }
+    { code: 'Asp',price: 50, name: 'Aspirin', desc: 'Used to reduce pain, fever, or inflammation.', qty: 8, pharma: 'Plus' },
+    { code: 'Ibu',price: 2, name: 'Ibuprofen', desc: 'Nonsteroidal anti-inflammatory drug (NSAID).', qty: 10, pharma: 'Central' },
+    { code: 'Par',price: 30, name: 'Paracetamol', desc: 'Used to treat mild to moderate pain and reduce fever.', qty: 15, pharma: 'Sun' },
+    { code: 'Amo',price: 10, name: 'Amoxicillin', desc: 'Antibiotic used to treat bacterial infections.', qty: 17, pharma: 'Gare' }
   ];
   allMed: any;
   med: any;
@@ -19,7 +19,7 @@ export class MedicationService {
     
   }
   getAll() {
-    // firebase
+      // firebase
     //  return this.db.collection('medications').snapshotChanges().pipe((actions: any) => {
     //     return actions.map((a: any) => {
     //       const data = a.payload.doc.data(); // User data
@@ -28,7 +28,9 @@ export class MedicationService {
     //     });
     //   })
       // localstorage
-    return this.medications;
+     const res = localStorage.getItem('medProd');
+    const data = res? JSON.parse(res): {};
+    return data;
   }
   // Simuler une recherche dans une API
   searchMedication(query: string): Observable<any[]> {
@@ -42,7 +44,7 @@ export class MedicationService {
     return of(results); // Retourner un Observable
   }
   getSingle(item: string) {
-    const data = this.medications.find(el => el.Id === item);
+    const data = this.medications.find(el => el.code === item);
     if (data) {
       return data;
     } else {
@@ -90,7 +92,18 @@ export class MedicationService {
     } 
     return favoris;
   }
-  delete(item: any) {
+  Delete(item: any) {
+      // delete in localstorage
+    const res = this.getMed();
+    if (res) {
+      const data = res.filter((el: any) => el.code !== item.code);
+      localStorage.setItem("medProd", JSON.stringify(data));
+      return true;
+    } else {
+      return false;
+    }
+    
+    //delete in firebase 
     this.db.collection('medications').doc(item.Id).delete()
       .then(() => {
         console.log('Document successfully deleted!');
@@ -98,5 +111,53 @@ export class MedicationService {
       .catch((error) => {
         console.error('Error deleting document: ', error);
       });
+    
+  }
+  Update(item: any) {
+    const res = this.getMed();
+    if (res) {
+      const data = res.findIndex((el: any) => el.code === item.code);
+      res[data] = item;
+      localStorage.setItem("medProd", JSON.stringify(res));
+      return true;
+    } else {
+      return false;
+    }
+  }
+  Create(item: any) {
+      // localstorage
+    let favoris: any = [];
+    const data = this.getAll()
+    if (data) {
+      favoris = data;
+      favoris.push(item);
+    }
+    else {
+      favoris.push(item);
+    }
+    try {
+      localStorage.setItem('medProd', JSON.stringify(favoris));
+      return true;
+    }
+    catch (error) {
+      console.log("MedError", error);
+      return false;
+    }
+      // Save data to Firestore
+    return this.db.collection('medications').add(item)
+    .then(() => {
+      alert('Form data saved successfully!');
+      this.med = {};
+      return true;
+    })
+    .catch((error) => {
+      console.error('Error saving form data: ', error);
+      return false;
+    });
+  }
+  getMed() {
+    const res = localStorage.getItem('medProd');
+    const data = res? JSON.parse(res): false;
+    return data;
   }
 }

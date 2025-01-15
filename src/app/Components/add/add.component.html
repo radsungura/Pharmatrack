@@ -1,3 +1,4 @@
+<!-- madication add form -->
 <div *ngIf="display == 'medication'" class="main card add-form">
     <button class="close-btn" (click)="navigate('admin', 'medications')">X</button>
     <div class="title">
@@ -5,39 +6,45 @@
     </div>
     <div class="form">
         <div class="field">
-            <label for="uname">Code</label>
-            <input name="uname" [(ngModel)]="med.Id" type="text" required>
+            <label for="code">Code</label>
+            <input name="code" [(ngModel)]="med.code" type="text" required>
+        </div>
+            <span *ngIf="exist" class="form-error">Medication code allready exist !</span>
+        <div class="field">
+            <label for="name">Name</label>
+            <input name="name" [(ngModel)]="med.name" type="text" required>
         </div>
         <div class="field">
-            <label for="uname">Name</label>
-            <input name="uname" [(ngModel)]="med.name" type="text" required>
+            <label for="qty">Quantity</label>
+            <input name="qty" [(ngModel)]="med.qty" type="number" required>
         </div>
         <div class="field">
-            <label for="uname">Quantity</label>
-            <input name="uname" [(ngModel)]="med.qty" type="number" required>
+            <label for="price">Price</label>
+            <input name="price" [(ngModel)]="med.price" type="number" required>
         </div>
         <div class="field">
-            <label for="uname">Pharmacy</label>
-            <input name="uname" [(ngModel)]="med.pharma" type="text" required>
+            <label for="pharma">Pharmacy</label>
+            <select name="pharma" [(ngModel)]="med.pharma" type="text" required>
+                <option *ngFor="let item of pharmacies" [value]="item.code">{{item.name}}</option>
+            </select>
         </div>
         <div class="field">
-            <label for="uname">Tel</label>
-            <input name="uname" [(ngModel)]="med.tel" type="phone" required>
+            <label for="desc">Descriptions</label>
+            <textarea name="des" [(ngModel)]="med.desc" type="text" required></textarea>
         </div>
         <div class="field">
-            <label for="uname">Quantity</label>
-            <input name="uname" [(ngModel)]="med.qty" type="number" required>
+            <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>
         </div>
         <div class="field">
-            <label for="name">Descriptions</label>
-            <textarea name="upass" [(ngModel)]="med.desc" type="text" required></textarea>
+            <label *ngIf="formerror" class="form-error">Some field are not completed correctly !</label>
         </div>
         <div class="footer">
-            <button type="submit" class="register btn" (click)="med = {}; editMed()">Clear</button>
-            <button type="submit" class="login btn" (click)="save(med)">Save</button>
+            <button type="submit" class="register btn" (click)="med = {}">Clear</button>
+            <button type="submit" class="login btn" (click)="saveMed(med)">Save</button>
         </div>
     </div>
 </div>
+    <!-- pharmacy add form -->
 <div *ngIf="display == 'pharmacy'" class="main card add-form">
     <button class="close-btn" (click)="navigate('admin', 'pharmacies')">X</button>
     <div class="title">
@@ -45,28 +52,36 @@
     </div>
     <div class="form">
         <div class="field">
-            <label for="uname">Code</label>
-            <input name="uname" [(ngModel)]="pharma.code" type="text" required>
+            <label for="code">Code</label>
+            <input name="code" [(ngModel)]="pharma.code" type="text" required>
+        </div>
+            <span *ngIf="exist" class="form-error">Code allready exist !</span>
+
+        <div class="field">
+            <label for="name">Name</label>
+            <input name="name" [(ngModel)]="pharma.name" type="text" required>
         </div>
         <div class="field">
-            <label for="uname">Name</label>
-            <input name="uname" [(ngModel)]="pharma.name" type="text" required>
+            <label for="tel">Tel</label>
+            <input name="tel" [(ngModel)]="pharma.tel" type="phone" required>
         </div>
         <div class="field">
-            <label for="uname">Tel</label>
-            <input name="uname" [(ngModel)]="pharma.tel" type="phone" required>
+            <label for="address">Address</label>
+            <input name="address" [(ngModel)]="pharma.address" type="text" required>
         </div>
         <div class="field">
-            <label for="uname">Address</label>
-            <input name="uname" [(ngModel)]="pharma.address" type="number" required>
+            <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>
+        </div>
+        <div class="field">
+            <label *ngIf="formerror" class="form-error">Some field are not completed correctly !</label>
         </div>
         <div class="footer">
-            <button type="submit" class="register btn" (click)="pharma = {}; editMed()">Clear</button>
+            <button type="submit" class="register btn" (click)="pharma = {}">Clear</button>
             <button type="submit" class="login btn" (click)="savePharma(pharma)">Save</button>
         </div>
     </div>
 </div>
-    <!-- users management -->
+    <!-- users add form -->
 <div *ngIf="display == 'user'" class="main card add-form">
     <button class="close-btn" (click)="navigate('admin', 'users')">X</button>
     <div class="title">
@@ -74,24 +89,33 @@
     </div>
     <div class="form">
         <div class="field">
-            <label for="uname">User Name</label>
-            <input name="uname" [(ngModel)]="user.name" type="text" required>
+            <label for="name">User Name</label>
+            <input name="name" [(ngModel)]="user.name" type="text" required>
+        </div>
+        <span *ngIf="exist" class="form-error">UnserName allready exist !</span>
+        <div class="field">
+            <label for="fullname">Full Name</label>
+            <input name="fullname" [(ngModel)]="user.fullname" type="text" required>
         </div>
         <div class="field">
-            <label for="uname">Full Name</label>
-            <input name="uname" [(ngModel)]="user.fullname" type="text" required>
+            <label for="mail">E-mail</label>
+            <input name="mail" [(ngModel)]="user.mail" type="mail" required>
         </div>
         <div class="field">
-            <label for="uname">E-mail</label>
-            <input name="uname" [(ngModel)]="user.mail" type="mail" required>
+            <label for="tel">Tel</label>
+            <input name="tel" [(ngModel)]="user.tel" type="phone" required>
         </div>
         <div class="field">
-            <label for="name">Password</label>
-            <input name="upass" [(ngModel)]="user.pass" type="password" required>
+            <label for="type">Type</label>
+            <input name="type" [(ngModel)]="user.type" type="text" required>
         </div>
         <div class="field">
-            <label for="name">Confirm</label>
-            <input name="upass" [(ngModel)]="user.conf" type="password" required>
+            <label for="pass">Password</label>
+            <input name="pass" [(ngModel)]="user.pass" type="password" required>
+        </div>
+        <div class="field">
+            <label for="conf">Confirm</label>
+            <input name="conf" [(ngModel)]="user.conf" type="password" required>
         </div>
         <div class="field">
             <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>

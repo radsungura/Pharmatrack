@@ -5,36 +5,35 @@
     </div>
     <div class="form">
         <div class="field">
-            <label for="uname">Code</label>
-            <input name="uname" [(ngModel)]="med.Id" type="text" required>
+            <label for="code">Code</label>
+            <input name="code" [(ngModel)]="med.code" type="text" required>
         </div>
         <div class="field">
-            <label for="uname">Name</label>
-            <input name="uname" [(ngModel)]="med.name" type="text" required>
+            <label for="name">Name</label>
+            <input name="name" [(ngModel)]="med.name" type="text" required>
         </div>
         <div class="field">
-            <label for="uname">Quantity</label>
-            <input name="uname" [(ngModel)]="med.qty" type="number" required>
+            <label for="qty">Quantity</label>
+            <input name="qty" [(ngModel)]="med.qty" type="number" required>
         </div>
         <div class="field">
-            <label for="uname">Pharmacy</label>
-            <input name="uname" [(ngModel)]="med.pharma" type="text" required>
+            <label for="pharma">Pharmacy</label>
+            <input name="pharma" [(ngModel)]="med.pharma" type="text" required>
         </div>
         <div class="field">
-            <label for="uname">Tel</label>
-            <input name="uname" [(ngModel)]="med.tel" type="phone" required>
+            <label for="price">Price</label>
+            <input name="price" [(ngModel)]="med.price" type="number" required>
         </div>
         <div class="field">
-            <label for="uname">Quantity</label>
-            <input name="uname" [(ngModel)]="med.qty" type="number" required>
+            <label for="desc">Descriptions</label>
+            <textarea name="desc" [(ngModel)]="med.desc" type="text" required></textarea>
         </div>
-        <div class="field">
-            <label for="name">Descriptions</label>
-            <textarea name="upass" [(ngModel)]="med.desc" type="text" required></textarea>
+        <div *ngIf="formerror" class="field">
+            <label >Something went wrong !</label>
         </div>
         <div class="footer">
-            <button type="submit" class="register btn" (click)="med = {}; editMed()">Clear</button>
-            <button type="submit" class="login btn" (click)="save(med)">Save</button>
+            <button type="submit" class="register btn" (click)="med = {}">Clear</button>
+            <button type="submit" class="login btn" (click)="UpdateMed(med)">Save</button>
         </div>
     </div>
 </div>
@@ -45,24 +44,24 @@
     </div>
     <div class="form">
         <div class="field">
-            <label for="uname">Code</label>
-            <input name="uname" [(ngModel)]="pharma.code" type="text" required>
+            <label for="code">Code</label>
+            <input name="code" [(ngModel)]="pharma.code" type="text" required disabled>
         </div>
         <div class="field">
-            <label for="uname">Name</label>
-            <input name="uname" [(ngModel)]="pharma.name" type="text" required>
+            <label for="name">Name</label>
+            <input name="name" [(ngModel)]="pharma.name" type="text" required>
         </div>
         <div class="field">
-            <label for="uname">Tel</label>
-            <input name="uname" [(ngModel)]="pharma.tel" type="phone" required>
+            <label for="tel">Tel</label>
+            <input name="tel" [(ngModel)]="pharma.tel" type="phone" required>
         </div>
         <div class="field">
-            <label for="uname">Address</label>
-            <input name="uname" [(ngModel)]="pharma.address" type="text" required>
+            <label for="address">Address</label>
+            <input name="address" [(ngModel)]="pharma.address" type="text" required>
         </div>
         <div class="footer">
-            <button type="submit" class="register btn" (click)="med = {}; editMed()">Clear</button>
-            <button type="submit" class="login btn" (click)="save(med)">Save</button>
+            <button type="submit" class="register btn" (click)="pharma = {}">Clear</button>
+            <button type="submit" class="login btn" (click)="UpdatePharma(pharma)">Save</button>
         </div>
     </div>
 </div>
@@ -87,6 +86,10 @@
         <div class="field">
             <label for="utel">Phone</label>
             <input name="utel" [(ngModel)]="user.tel" type="phone" required>
+        </div>
+        <div class="field">
+            <label for="type">Type</label>
+            <input name="type" [(ngModel)]="user.type" type="text" required>
         </div>
         <div class="field">
             <label for="upass">Pass</label>

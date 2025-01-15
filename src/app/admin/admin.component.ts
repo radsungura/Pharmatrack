@@ -15,25 +15,15 @@ export class AdminComponent implements OnInit{
   display: string;
   pharma: any;
   users: any;
-constructor(public route: Router, public Umed: MedicationService,public Uservice: UserService, public Pservice: PharmaService, public location: Location) {
-  this.med = this.Umed.getAll();
+constructor(public route: Router, public Mservice: MedicationService,public Uservice: UserService, public Pservice: PharmaService, public location: Location) {
+  this.med = this.Mservice.getMed();
   this.users = this.Uservice.getUsers();
   this.pharma = this.Pservice.getAll();
-  console.log(this.pharma);
-  
   this.display = 'medications';
   }
-  open(item: string) {
-    this.display = item;
-  }
+  
   add(item: string) {
-  this.route.navigate(['add'], {state: { data: item }});
-  }
-  navigate(item: string, cat: string) {
-  this.route.navigate([item], {state: { data: cat }});
-  }
-  goBack() {
-    this.location.back(); // Utilisation du service Location pour revenir en arrière dans l'historique
+    this.route.navigate(['add'], {state: { data: item }});
   }
   details(item: any) {
   item.cat = "med";
@@ -41,20 +31,21 @@ constructor(public route: Router, public Umed: MedicationService,public Uservice
     state: { data: item }
   });
   }
-  edit(item: any) {
+  Medit(item: any) {
     item.cat = "med";
     this.route.navigate(['edit'], {
       state: { data: item }
     });
   }
-   delete(item: any) {
-     const decision = confirm("You are about to detete" + item.name + "!");
-     if (decision) {
-     this.Umed.delete(item.Id);
-     } else {
-       
-     }
-   }
+  Mdelete(item: any) {
+    const decision = confirm("You are about to detete" + item.name + "!");
+    if (decision) {
+      const res = this.Mservice.Delete(item);
+      res ? this.med = this.Mservice.getMed() : this.med;
+    } else {
+      
+    }
+  }
     // pharmacy
   Pdetails(item: any) {
     item.cat = "pharma";
@@ -71,7 +62,8 @@ constructor(public route: Router, public Umed: MedicationService,public Uservice
   Pdelete(item: any) {
     const decision = confirm("You are about to detete" + item.name + "!");
     if (decision) {
-    this.Umed.delete(item.Id);
+      const res = this.Pservice.Delete(item);
+      res ? this.pharma = this.Pservice.getPharma() : this.pharma;
     } else {
       
     }
@@ -89,13 +81,23 @@ constructor(public route: Router, public Umed: MedicationService,public Uservice
     });
   }
   Udelete(item: any) {
-    const decision = confirm("You are about to detete  " + item.name + "  !");
-    if (decision) {
-      this.Uservice.Delete(item.Id);
+    const decision = confirm(" You are about to detete " + item.name + " !"); 
+    if (decision) { 
+      const res = this.Uservice.Delete(item.name);
+      res ? this.users = this.Uservice.getUsers() : this.users;
     }
     else {
-      
     }
+  }
+  // navigation
+  navigate(item: string, cat: string) {
+  this.route.navigate([item], {state: { data: cat }});
+  }
+  goBack() {
+    this.location.back(); // Utilisation du service Location pour revenir en arrière dans l'historique
+  }
+  open(item: string) {
+    this.display = item;
   }
   ngOnInit() {
     this.display = history.state.data? history.state.data: 'medications';

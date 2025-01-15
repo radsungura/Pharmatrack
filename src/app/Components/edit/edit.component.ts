@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { MedicationService } from 'src/app/services/medication.service';
+import { PharmaService } from 'src/app/services/pharma.service';
 
 @Component({
   selector: 'app-edit',
@@ -15,8 +17,11 @@ display: string = "form-med";
   allMed: any;
   user: any;
   userError: boolean = false;
+  origin: any;
+  params: any;
+  formerror: boolean = false;
 
-  constructor(public db: AngularFirestore, public route: Router, public Uservice: UserService){}
+  constructor(public db: AngularFirestore, public route: Router, public Uservice: UserService, public Mservice: MedicationService, public Pservice: PharmaService){}
   open(item: string) {
     this.route.navigate(['admin'], { state :{ data: item}});
   }
@@ -34,34 +39,33 @@ display: string = "form-med";
       });
     }
   }
-  editMed() {
-    this.db.collection('medications').valueChanges().subscribe((el: any) => {
-      this.allMed = el;
-      console.log("medication", this.allMed);
-     })
+  UpdateMed(item: any) {
+      // update medication in localstorage
+    const res = this.Mservice.Update(item);
+    res? this.route.navigate(['admin'], { state :{ data: 'medications'}}): this.formerror = true;
+  }
+   UpdatePharma(item: any) {
+      // update medication in localstorage
+    const res = this.Pservice.Update(item);
+    res? this.route.navigate(['admin'], { state :{ data: 'pharmacies'}}): this.formerror = true;
+     
   }
   saveUser(item: any) { 
-    const res = this.Uservice.Create(item);
-    if (!res) {
-      alert("Some went wrong, try to repeat !");
-    }
-    else {
-      this.user = {}  
-    }
+   const res = this.Uservice.Update(item);
+    res? this.route.navigate(['admin'], { state :{ data: 'users'}}): this.formerror = true;
   }
   ngOnInit() {
-    const params = history.state.data;
-    console.log("pamas", params);
-    if (params.cat == 'med') {
-      this.med = params
+    this.params = history.state.data;
+    if (this.params.cat == 'med') {
+      this.med = this.params;
       this.display = 'medications';
     }
-    else if (params.cat == 'pharma') {
-      this.pharma = params
+    else if (this.params.cat == 'pharma') {
+      this.pharma = this.params
       this.display = 'pharmacy';
     }
-    else if(params.cat == 'user'){
-      this.user = params
+    else if(this.params.cat == 'user'){
+      this.user = this.params
       this.display = 'user';
     }
   }

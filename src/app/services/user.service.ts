@@ -17,8 +17,8 @@ export class UserService {
   login(item: any) {
     let error = false;
     const connect = item;
-    const check = this.users.find(el =>  el.name == connect.name && el.pass == connect.pass);
-
+    const data = this.getUsers()
+    const check = data.find((el: any) =>  el.name == connect.name && el.pass == connect.pass);
     if (check) {
       localStorage.setItem('meduser', JSON.stringify(check));
       alert("Successfull connected !");
@@ -29,7 +29,6 @@ export class UserService {
     }
     return error;
   }
-
   // async Login(item: any) {
   //   let error: boolean = false;
   //   try {
@@ -44,7 +43,6 @@ export class UserService {
   //   return error;
 
   // }
-
   logout() {
     const decision = confirm('You are about to logout !');
     if (decision) {
@@ -55,8 +53,8 @@ export class UserService {
   }
   getUser() {
     const data: any = localStorage.getItem('meduser');
-    const user = JSON.parse(data);    
-    return user;
+    const res = data? JSON.parse(data): {};
+    return res;
   }
   getLoged() {
     const loged = localStorage.getItem('meduser');
@@ -101,6 +99,16 @@ export class UserService {
     // this.db.collection('users');  
   }
   Delete(item: any) {
+
+     const res = this.getUsers();
+    if (res) {
+      const data = res.filter((el: any) => el.name !== item);
+      localStorage.setItem("medusers", JSON.stringify(data));
+      return true;
+    } else {
+      return false;
+    }
+
     this.db.collection('users').doc(item.Id).delete()
       .then(() => {
         console.log('Document successfully deleted!');
@@ -110,6 +118,15 @@ export class UserService {
       });
   }
   Update(item: any) {
-    
+    const res = this.getUsers();
+    if (res) {
+      const data = res.findIndex((el: any) => el.name === item.name);
+      res[data] = item;
+      localStorage.setItem("medusers", JSON.stringify(res));
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }

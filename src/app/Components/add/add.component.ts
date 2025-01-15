@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { PharmaService } from 'src/app/services/pharma.service';
+import { MedicationService } from 'src/app/services/medication.service';
 
 @Component({
   selector: 'app-add',
@@ -16,7 +18,9 @@ export class AddComponent {
   formerror: boolean = false;
   serverror: boolean = false;
   user: any;
-  constructor(public db: AngularFirestore, public route: Router, public Uservice: UserService   ) {
+  pharmacies: any;
+  exist: boolean = false;
+  constructor(public db: AngularFirestore, public route: Router, public Uservice: UserService, public Pservice: PharmaService,public Mservice: MedicationService   ) {
     this.med = {}
     this.pharma = {}
     this.user = {}
@@ -28,69 +32,63 @@ export class AddComponent {
   open() {
     this.route.navigate(['admin']);
   }
-  save(item: {}) {
-
-    if (Object.keys(item).length === 5) {
-
-      // Save form data to Firestore
-      this.db.collection('medications').add(item)
-        .then(() => {
-          alert('Form data saved successfully!');
-          console.log('Form data saved successfully!');
-          this.med = {};
-        })
-        .catch((error) => {
-          console.error('Error saving form data: ', error);
-        });
-    }
-  }
-  savePharma(item: {}) {
-
-    if (Object.keys(item).length === 5) {
-
-      // Save form data to Firestore
-      this.db.collection('pharmacies').add(item)
-        .then(() => {
-          alert('Form data saved successfully!');
-          console.log('Form data saved successfully!');
-          this.med = {};
-        })
-        .catch((error) => {
-          console.error('Error saving form data: ', error);
-        });
-    }
-  }
-  saveUser(item: {}) {
-    console.log(item);
-    
-    if (Object.keys(item).length === 5) {
-       // localstorage
-      const res = this.Uservice.Create(item);
-      this.serverror = res? false: true ;
-      // Save form data to Firestore
-      this.db.collection('users').add(item)
-        .then(() => {
-          alert('Form data saved successfully!');
-          console.log('Form data saved successfully!');
-          this.med = {};
-        })
-        .catch((error) => {
-          console.error('Error saving form data: ', error);
-        });
+  saveMed(item: any) {
+    if (Object.keys(item).length == 6) {
+      if (this.Mservice.getMed()) {
+        this.exist = this.Mservice.getMed().find((el: any) => el.code === item.code )? true : false;
+      }
+      if (this.exist) {
+        return
+      }
+      else {
+        const res = this.Mservice.Create(item);
+        this.serverror = res ? false: true;
+        this.med = this.serverror? this.med: {};
+      }
     }
     else {
       this.formerror = true;
     }
+    return this.formerror || this.serverror ? false : true;
   }
-  editMed() {
-    this.db.collection('medications').valueChanges().subscribe((el: any) => {
-      this.allMed = el;
-    console.log("medication", this.allMed);
-
-     })
-    
+  savePharma(item: any) {
+    if (Object.keys(item).length == 4) {
+      if (this.Pservice.getPharma()) {
+        this.exist = this.Pservice.getPharma().find((el: any) => el.code === item.code) ? true : false;
+        if (this.exist) {
+          return
+        }
+        else {
+          const res = this.Pservice.Create(item);
+          this.serverror = res ? false : true;
+          this.pharma = this.serverror? this.pharma: {};
+        }
+      }
+    }
+    else {
+      this.formerror = true;
+    }   
+  }
+  saveUser(item: any) {
+    if (Object.keys(item).length == 7) {
+      if (this.Uservice.getUsers()) {
+        this.exist = this.Uservice.getUsers().find((el: any) => el.name === item.name) ? true : false;
+        if (this.exist) {
+          return
+        }
+        else {
+          const res = this.Uservice.Create(item);
+          this.serverror = res ? false : true;
+          this.user = this.serverror? this.user: {};
+        }
+      }
+    }
+    else {
+      this.formerror = true;
+    } 
   }
   ngOnInit() {
     this.display = history.state.data ? history.state.data : '';
+    this.pharmacies = this.Pservice.getAll();
   }
 }
