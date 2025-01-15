@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { FirebaseAppModule } from '@angular/fire/app';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
@@ -13,12 +12,15 @@ export class PharmaService {
     { tel: '71 255 077', code: 'Gare', name: 'Gare Pharma', address: '789 Avenue de la Gare, Lyon' },
     { tel: '71 358 077', code: 'Central', name: 'Central Pharma', address: '101 Rue de la Liberté, Marseille' }
   ];
+  this.
   getUsers: any;
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore) { 
+    this.pharmacies = this.getPharma();
+  }
   // pharmacy search
   searchPharmacies(query: string): Observable<any[]> {
     // Filtrer les pharmacies en fonction du nom
-    const results = this.pharmacies.filter(pharma => pharma.name.toLowerCase().includes(query.toLowerCase()));
+    const results = this.pharmacies.filter(pharma => pharma.name.toLowerCase().includes(query.toLowerCase()) || pharma.address.toLowerCase().includes(query.toLowerCase()));
     return of(results); // Retourner un Observable
   }
   getAll(){

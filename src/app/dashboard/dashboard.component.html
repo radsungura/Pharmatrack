@@ -25,7 +25,7 @@
             <button class="action-button" (click)="open('add', 'pharmacy')">Add pharmacy</button>
         </section>
     </main>
-    <main *ngIf="display == 'user'" class="main-content">
+    <main *ngIf="display !== 'admin'" class="main-content">
         <header class="dashboard-header">
             <h1>Dashboard</h1>
         </header>

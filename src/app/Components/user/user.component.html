@@ -24,20 +24,23 @@
 <div *ngIf="display == 'register'" class="main register">
     <div class="title">
         <h4>Register</h4>
-        
     </div>
     <div class="form">
         <div class="field">
-            <label for="uname">User Name</label>
-            <input name="uname" [(ngModel)]="user.name" type="text" required>
+            <label for="name">User Name</label>
+            <input name="name" [(ngModel)]="user.name" type="text" required>
         </div>
         <div class="field">
-            <label for="uname">Full Name</label>
-            <input name="uname" [(ngModel)]="user.fullname" type="text" required>
+            <label for="fullname">Full Name</label>
+            <input name="fullname" [(ngModel)]="user.fullname" type="text" required>
         </div>
         <div class="field">
-            <label for="uname">E-mail</label>
-            <input name="uname" [(ngModel)]="user.mail" type="mail" required>
+            <label for="mail">E-mail</label>
+            <input name="mail" [(ngModel)]="user.mail" type="mail" required>
+        </div>
+        <div class="field">
+            <label for="tel">Tel</label>
+            <input name="tel" [(ngModel)]="user.tel" type="phone" required>
         </div>
         <div class="field">
             <label for="name">Password</label>
@@ -54,6 +57,6 @@
             <button type="reset" class="clear btn" (click)="user = {}">clear</button>
             <button type="submit" class="login btn" (click)="register(user)">Save</button>
         </div>
-        <!-- <span class="login-span" (click)="display = 'login'">login</span> -->
+        <span class="login-span" (click)="display = 'login'">login</span>
     </div>
 </div>

@@ -3,10 +3,14 @@
     <div class="main-content">
         <div class="nav">
             <h2 class="text mobile-title">PharmaTrack</h2>
-            <h2 *ngIf="Uservice.getLoged()" class="name">{{Uservice.getUser().name}}</h2>
+            <h2 *ngIf="Uservice.getLoged()" class="name">{{Uservice.getUser().fullname}}</h2>
             <h2 *ngIf="!Uservice.getLoged()" class="name"></h2>
-            <button *ngIf="Uservice.getLoged()" class="logout-button" (click)="Uservice.logout()">Logout</button>
-            <button *ngIf="!Uservice.getLoged()" class="login-button" (click)="open('login')">Login</button>
+            <span *ngIf="Uservice.getLoged()" class="logout-button" (click)="Uservice.logout()">
+                <img src="../assets/user.png" alt="logout">
+            </span>
+            <span *ngIf="!Uservice.getLoged()" class="login-button" (click)="open('login')">
+                <img src="../assets/user.png" alt="login">
+            </span>
         </div>
         <router-outlet></router-outlet>
     </div>

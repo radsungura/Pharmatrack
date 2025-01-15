@@ -15,7 +15,7 @@
 }
 .name{
   position: relative;
-    right: -75%;
+    right: -70%;
 }
 .container {
   display: flex;
@@ -32,11 +32,9 @@
     width: 80%;
 }
 .logout-button {
-  background-color: #e74c3c;
-  color: white;
   border: none;
   padding: 10px 20px;
-  font-size: 1rem;
+  font-size: 30px;
   cursor: pointer;
   border-radius: 5px;
   margin-left: 75%;
@@ -44,16 +42,16 @@
   right: 10px;
 }
 .login-button {
-  background-color: #e74c3c;
-  color: white;
   border: none;
   padding: 10px 20px;
-  font-size: 1rem;
+  font-size: 30px;
   cursor: pointer;
-  border-radius: 5px;
   margin-left: 75%;
   position: fixed;
   right: 10px;
+}
+img{
+  width: 40px;
 }
 .mobile-title{
   display: none;

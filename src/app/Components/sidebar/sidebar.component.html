@@ -13,8 +13,8 @@
             <li>🏠<span class="text" (click)="open('dashboard')">Dashboard</span></li>
             <li>💊 <span class="text" (click)="open('medication')">Medications</span></li>
             <li>🏥 <span class="text" (click)="open('pharmacy')">Pharmacy</span></li>
-            <!-- <li>🔍 <span class="text" (click)="open('admin')">Ilness</span></li> -->
-            <li>⚙️ <span class="text" (click)="open('admin')">Data</span></li>
+            <li *ngIf="user.type == 'admin'">⚙️ <span class="text" *ngIf="user.type == 'admin'" (click)="open('admin')">Settings</span></li>
+            <li *ngIf="user.type !== 'admin'">✅ <span class="text"  (click)="open('favorite')">Favorite</span></li>
         </ul>
     </aside>
 </div>

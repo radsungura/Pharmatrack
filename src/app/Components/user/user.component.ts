@@ -24,10 +24,9 @@ export class UserComponent {
   register(item: any) {
     this.Rerror = item.pass !== item.conf ? true : false; 
     if (this.Rerror) {
-      
     }
     else {
-      if (Object.keys(item).length < 5) {
+      if (Object.keys(item).length < 6) {
             alert("Some fields are not completed correctly !")
       } else {
         item.type = "user";

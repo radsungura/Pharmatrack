@@ -23,7 +23,7 @@ export class DashboardComponent {
     this.user = this.Uservice.getUsers() ? this.Uservice.getUsers().length : 0;
     this.med = this.Mservice.getMed() ? this.Mservice.getMed().length : 0;
     if (this.loged) {
-      this.fav = this.Mservice.getFavorite(this.loged.name)? this.Mservice.getFavorite(this.user.name).length : 0;
+      this.fav = this.Mservice.getFavorite(this.loged.name)? this.Mservice.getFavorite(this.loged.name).length : 0;
     } else {
     }
   }
