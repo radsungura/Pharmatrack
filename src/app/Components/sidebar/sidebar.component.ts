@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
@@ -7,22 +7,32 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnChanges{
   sidebar: any;
   isSidebarVisible: boolean = true;
-  user: any;
+  @Input() user: any;
   constructor(public route: Router, public Uservice: UserService) {
     this.sidebar = document.getElementById('sidebar')!;
-    this.user = this.Uservice.getUser()? this.Uservice.getUser(): {};
+    // this.user = this.Uservice.getUser()? this.Uservice.getUser(): {};
   }
 // Fonction pour toggler le menu latéral
   toggle(): void {
     this.isSidebarVisible = !this.isSidebarVisible;
   }
   open(item: string) {
-    this.route.navigate([item], {
+    if (item == 'favorite' && !this.user.name) {
+      this.route.navigate(['user']);
+    } else {
+      this.route.navigate([item], {
       state: { data : item }
     });
+    }
+    
+  }
+  ngOnChanges(item: any) {
+    console.log(item.user.currentValue);
+    
+    this.user = item.user.currentValue;
   }
   
 }

@@ -12,18 +12,24 @@ export class AppComponent {
   title = 'pharmatrack';
   loged = false;
   user: any;
-  display: string =  'dashboard';
+  display: string =  'home';
   constructor(public Uservice: UserService, public route: Router) {
     this.user = this.Uservice.getUser();
     this.loged = this.Uservice.getLoged();
+    this.display = this.loged ? 'dashboard' : 'home';
+
    
   }
   logout() {
     this.user.logout
+    window.location.reload()
   }
   open(item: string) {
-    // this.display = item;
+    this.display = 'dashboard';
     this.route.navigate(['user']);
+  }
+  navigate(item: string) {
+    
   }
   
 }

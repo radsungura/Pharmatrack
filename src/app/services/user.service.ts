@@ -21,8 +21,9 @@ export class UserService {
     const check = data.find((el: any) =>  el.name == connect.name && el.pass == connect.pass);
     if (check) {
       localStorage.setItem('meduser', JSON.stringify(check));
-      alert("Successfull connected !");
       this.route.navigate(['dashboard']);
+      // window.location.reload()
+
       error = false;
     } else {
       error = true;
@@ -47,6 +48,8 @@ export class UserService {
     const decision = confirm('You are about to logout !');
     if (decision) {
       localStorage.removeItem('meduser');
+      this.route.navigate(['dashboard']);
+      window.location.reload()
     } else {
       
     }
@@ -128,5 +131,9 @@ export class UserService {
     else {
       return false;
     }
+  }
+  Display(item: string) {
+    const display = item;
+    return display;
   }
 }

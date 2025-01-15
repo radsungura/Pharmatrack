@@ -12,7 +12,6 @@ import { PharmaService } from './services/pharma.service';
 import { PharmaSearchComponent } from './Components/pharma-search/pharma-search.component';
 import { DetailsComponent } from './Components/details/details.component';
 import { UserComponent } from './Components/user/user.component';
-import { NotificationsComponent } from './Components/notifications/notifications.component';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AddComponent } from './Components/add/add.component';
@@ -42,11 +41,10 @@ const firebaseConfig = {
     PharmaSearchComponent,
     DetailsComponent,
     UserComponent,
-    NotificationsComponent,
     AddComponent,
     AdminComponent,
     FavoriteComponent,
-    EditComponent
+    EditComponent,
   ],
   imports: [
     BrowserModule,

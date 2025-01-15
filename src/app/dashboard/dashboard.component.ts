@@ -26,6 +26,8 @@ export class DashboardComponent {
       this.fav = this.Mservice.getFavorite(this.loged.name)? this.Mservice.getFavorite(this.loged.name).length : 0;
     } else {
     }
+      // window.location.reload();
+
   }
   open(item: string, cat: string) {
      this.route.navigate([item], { state: { data: cat } });

@@ -12,10 +12,10 @@ export class PharmaService {
     { tel: '71 255 077', code: 'Gare', name: 'Gare Pharma', address: '789 Avenue de la Gare, Lyon' },
     { tel: '71 358 077', code: 'Central', name: 'Central Pharma', address: '101 Rue de la Liberté, Marseille' }
   ];
-  this.
   getUsers: any;
   constructor(private db: AngularFirestore) { 
     this.pharmacies = this.getPharma();
+     console.log("firebase", this.db.collection('pharmacies').valueChanges());
   }
   // pharmacy search
   searchPharmacies(query: string): Observable<any[]> {
@@ -27,6 +27,9 @@ export class PharmaService {
     const res = localStorage.getItem('medPharma');
     const data = res? JSON.parse(res): false;
     return data;
+
+    // firebase retreview
+     this.db.collection('pharmacies').valueChanges();
   }
   getSingle(item: string) {
     const data = this.pharmacies.find(el => el.code === item);

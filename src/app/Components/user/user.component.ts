@@ -20,6 +20,8 @@ export class UserComponent {
   login(item: any) {
     let res = this.Uservice.login(item);
     this.loged = res;
+    // window.location.reload();
+    
   }
   register(item: any) {
     this.Rerror = item.pass !== item.conf ? true : false; 
