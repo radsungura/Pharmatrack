@@ -63,6 +63,9 @@ select{
 .form-error{
   color: red;
 }
+.form-success{
+  color: green;
+}
 .close-btn{
     background-color: #f93030d4;
     color: white;
@@ -76,3 +79,21 @@ select{
   margin: 0px auto;
     padding: 20px 50px;
 }
+
+/* Apply the animation to the text */
+    .spin {
+      top: 60%;
+      width: 200px;
+      position: fixed;
+      display: inline-block;
+      animation: rotate 1s linear infinite;
+    }
+/* Define the rotating animation */
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

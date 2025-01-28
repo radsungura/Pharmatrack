@@ -13,37 +13,23 @@ export class UserService {
     { name: 'lion', type: "admin", tel: '61 607 690',  fullname: 'Lion RUKUNDO', email: 'rukundolion@gmail.com', pass: '123' }
   ]
   constructor(public route: Router, private afAuth: AngularFireAuth, private db: AngularFirestore ) { }
-  
-  login(item: any) {
-    let error = false;
-    const connect = item;
-    const data = this.getUsers()
-    const check = data.find((el: any) =>  el.name == connect.name && el.pass == connect.pass);
-    if (check) {
-      localStorage.setItem('meduser', JSON.stringify(check));
-      this.route.navigate(['dashboard']);
-      // window.location.reload()
+  async login(item: any) {
+    item.email = item.name;
+    item.password = item.pass;
+    let error: boolean = false;
+    try {
+      const userCredential = await this.afAuth.signInWithEmailAndPassword(item.email, item.password);
+      console.log('Logged in:', userCredential);
+      localStorage.setItem("meduser", JSON.stringify(userCredential));
 
+      this.route.navigate(['/dashboard']);  // Navigate to the home page after login
       error = false;
-    } else {
+    } catch (error) {
+      console.error('Error logging in:', error);
       error = true;
     }
     return error;
   }
-  // async Login(item: any) {
-  //   let error: boolean = false;
-  //   try {
-  //     const userCredential = await this.afAuth.signInWithEmailAndPassword(item.email, item.password);
-  //     console.log('Logged in:', userCredential);
-  //     this.route.navigate(['/home']);  // Navigate to the home page after login
-  //     error = false;
-  //   } catch (error) {
-  //     console.error('Error logging in:', error);
-  //     error = true;
-  //   }
-  //   return error;
-
-  // }
   logout() {
     const decision = confirm('You are about to logout !');
     if (decision) {
@@ -68,51 +54,44 @@ export class UserService {
     }
   }
   getUsers() {
-    const data =  localStorage.getItem('medusers');
-    const res = data? JSON.parse(data): {};
-    return res;
+    return  this.db.collection('users').valueChanges()
   }
   getById(item: any) {
-    const res = this.getUsers();
-    const data = res ? res.find((el: any) => { el.name == item.name }) : '';
-    return data;
+    return this.db.collection('users').doc(item).valueChanges();
   }
-  Create(item: any) {
-  // localstorage
-    let users: any = [];
-    let success = true;
-    const res = this.getUsers()
-    const data: any = res;
-    if (data) {
-      users = data;
-      users.push(item);
-    }
-    else {
-      users.push(item);
-    }
-    try {
-      localStorage.setItem('medusers', JSON.stringify(users));
-    }
-    catch (error) {
-      console.log("MedError", error);
-      success = false;
-    }
-    return success;
-  //firebasestorage
-    // this.db.collection('users');  
+  async Create(item: any) {
+    item.uid = item.name;
+      return this.afAuth.createUserWithEmailAndPassword(item.mail, item.pass)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log("user", userCredential);
+      // Store user data in Firestore
+      return this.db.collection('users').doc(user?.uid).set(item)
+        .then(() => {
+          return true;
+        }).catch((error) => {
+          console.error('Error saving form data: ', error);
+          return false;
+        });
+    })
+    .then(() => {
+      // Redirect to a dashboard after successful registration
+      this.route.navigate(['/dashboard']);
+      return true;
+    })
+    .catch(error => {
+      if (error.code) {
+        // this.handleError(error);
+        return false;
+      } else {
+        return false
+        console.error('Unexpected error:', error);
+      }
+    });
   }
   Delete(item: any) {
-
-     const res = this.getUsers();
-    if (res) {
-      const data = res.filter((el: any) => el.name !== item);
-      localStorage.setItem("medusers", JSON.stringify(data));
-      return true;
-    } else {
-      return false;
-    }
-
-    this.db.collection('users').doc(item.Id).delete()
+    // delete user
+    return this.db.collection('users').doc(item.name).delete()
       .then(() => {
         console.log('Document successfully deleted!');
       })
@@ -121,19 +100,34 @@ export class UserService {
       });
   }
   Update(item: any) {
-    const res = this.getUsers();
-    if (res) {
-      const data = res.findIndex((el: any) => el.name === item.name);
-      res[data] = item;
-      localStorage.setItem("medusers", JSON.stringify(res));
+    return this.db.collection('users').doc(item.name).update(item).then(() => {
+      console.log('Form data saved successfully!');
       return true;
-    }
-    else {
+    })
+    .catch((error) => {
+      console.error('Error saving form data: ', error);
       return false;
-    }
+    });
   }
   Display(item: string) {
     const display = item;
     return display;
+  }
+  private handleError(error: any): void {
+    // Common Firebase Error codes
+    switch (error.code) {
+      case 'auth/email-already-in-use':
+        alert('Email already in use. Please choose another one.');
+        break;
+      case 'auth/invalid-email':
+        alert('Please enter a valid email address.');
+        break;
+      case 'auth/weak-password':
+        alert('Password should be at least 6 characters.');
+        break;
+      default:
+        alert('An unexpected error occurred: ' + error.message);
+        break;
+    }
   }
 }

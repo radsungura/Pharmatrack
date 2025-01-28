@@ -20,7 +20,20 @@
     justify-content: space-between;
     margin: 20px 0 0;
 }
+.form-success{
+  color: green;
+}
+.form-error{
+  color: red;
+}
 input{
+    width: 100%;
+    height: 30px;
+    border: 3px solid #d7d5d5c7;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+select{
     width: 100%;
     height: 30px;
     border: 3px solid #d7d5d5c7;
@@ -59,3 +72,20 @@ input{
     border: solid #7b7b7c;
     float: right
 }
+/* Apply the animation to the text */
+    .spin {
+      top: 60%;
+      width: 200px;
+      position: fixed;
+      display: inline-block;
+      animation: rotate 1s linear infinite;
+    }
+/* Define the rotating animation */
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

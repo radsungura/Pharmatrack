@@ -13,7 +13,7 @@ export class SidebarComponent implements OnChanges{
   @Input() user: any;
   constructor(public route: Router, public Uservice: UserService) {
     this.sidebar = document.getElementById('sidebar')!;
-    // this.user = this.Uservice.getUser()? this.Uservice.getUser(): {};
+    this.user = this.Uservice.getUser()? this.Uservice.getUser(): {};
   }
 // Fonction pour toggler le menu latéral
   toggle(): void {
@@ -22,7 +22,12 @@ export class SidebarComponent implements OnChanges{
   open(item: string) {
     if (item == 'favorite' && !this.user.name) {
       this.route.navigate(['user']);
-    } else {
+    } else if (item == 'admin') { 
+      this.route.navigate([item], {
+      state: { data : 'medications' }
+    });
+    }
+    else {
       this.route.navigate([item], {
       state: { data : item }
     });
@@ -30,8 +35,6 @@ export class SidebarComponent implements OnChanges{
     
   }
   ngOnChanges(item: any) {
-    console.log(item.user.currentValue);
-    
     this.user = item.user.currentValue;
   }
   

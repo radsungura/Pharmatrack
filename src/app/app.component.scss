@@ -1,6 +1,6 @@
 .dashboard{
   .nav{
-      background-color: rgb(44 62 80);
+      background-color: rgb(59 115 113);
       height: 20px;
       width: 94%;
       color: aliceblue;
@@ -132,7 +132,7 @@
 
 /* Navbar */
 .navbar {
-    background-color: #2C3E50;
+    background-color: rgb(59, 115, 113);
     padding: 15px 0;
 }
 
@@ -162,13 +162,13 @@
 }
 
 .nav-links a:hover {
-    background-color: #E74C3C;
+    background-color: #000000;
     border-radius: 5px;
 }
 
 /* Home Section */
 .hero {
-    background: #2C3E50;
+    background: rgb(59, 115, 113);
     color: #fff;
     padding: 100px 0;
     text-align: center;
@@ -213,7 +213,7 @@
 }
 
 .search-btn:hover {
-    background-color: #c0392b;
+    background-color: #000000;
 }
 
 /* About Section */
@@ -288,7 +288,7 @@ textarea {
 
 .submit-btn {
     padding: 10px 20px;
-    background-color: #E74C3C;
+    background-color: green;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -296,7 +296,7 @@ textarea {
 }
 
 .submit-btn:hover {
-    background-color: #c0392b;
+    background-color: #000000;
 }
 
 /* Footer */

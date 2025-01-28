@@ -20,68 +20,104 @@ export class AddComponent {
   user: any;
   pharmacies: any;
   exist: boolean = false;
+  users: any;
+  medications: any;
+  saveBtn: boolean = false;
+  pending: boolean = false;
+  success: boolean = false;
   constructor(public db: AngularFirestore, public route: Router, public Uservice: UserService, public Pservice: PharmaService,public Mservice: MedicationService   ) {
     this.med = {}
     this.pharma = {}
     this.user = {}
+    this.Pservice.getPharma().subscribe((el: any) => {
+      this.pharmacies = el;
+    })
+    this.Mservice.getMed().subscribe((el: any) => {
+      this.medications = el;
+    })
+    this.Uservice.getUsers().subscribe((el: any) => {
+      this.users = el;
+    })
   }
-
   navigate(item: string, cat: string) {
     this.route.navigate(['admin'], { state: { data: cat }});
   }
   open() {
     this.route.navigate(['admin']);
   }
+  checkCode(item: string, cat: string) {
+
+    if (this.medications && cat == 'medication') {
+      this.exist = this.medications.find((el: any) => el.code === item);
+      if (this.exist) {
+        this.exist = true;
+        this.saveBtn = true;
+      } else {
+        this.saveBtn = false;
+      }
+    }
+    if (this.pharmacies && cat == 'pharmacy') {
+      this.exist = this.pharmacies.find((el: any) => el.code === item);
+      if (this.exist) {
+        this.exist = true;
+        this.saveBtn = true;
+      } else {
+        this.saveBtn = false;
+      }
+    }
+    if (this.users && cat == 'user') {
+      console.log("user item", item);
+      
+      this.exist = this.users.find((el: any) => el.name === item);
+      if (this.exist) {
+        this.exist = true;
+        this.saveBtn = true;
+      } else {
+        this.saveBtn = false;
+      }
+    }
+  }
   saveMed(item: any) {
     if (Object.keys(item).length == 6) {
-      if (this.Mservice.getMed()) {
-        this.exist = this.Mservice.getMed().find((el: any) => el.code === item.code )? true : false;
-      }
-      if (this.exist) {
-        return
-      }
-      else {
-        const res = this.Mservice.Create(item);
-        this.serverror = res ? false: true;
-        this.med = this.serverror? this.med: {};
-      }
+    this.pending = true;
+      this.Mservice.Create(item).then((el: any) => {
+        this.pending = false;
+        this.success = el;
+        this.serverror = el ? false : true;
+        this.med = el? {}: this.med;
+      });
     }
     else {
       this.formerror = true;
     }
-    return this.formerror || this.serverror ? false : true;
   }
   savePharma(item: any) {
     if (Object.keys(item).length == 4) {
-      if (this.Pservice.getPharma()) {
-        this.exist = this.Pservice.getPharma().find((el: any) => el.code === item.code) ? true : false;
-        if (this.exist) {
-          return
-        }
-        else {
-          const res = this.Pservice.Create(item);
-          this.serverror = res ? false : true;
-          this.pharma = this.serverror? this.pharma: {};
-        }
-      }
+    this.pending = true;
+      this.Pservice.getPharma().subscribe((data: any) => {
+        this.Pservice.Create(item).then((el: any) => {
+          this.pending = false;
+          this.success = el;
+          this.serverror = el ? false : true;
+          this.pharma = !el ? this.pharma : {};
+        });
+      });
     }
     else {
       this.formerror = true;
     }   
   }
   saveUser(item: any) {
-    if (Object.keys(item).length == 7) {
-      if (this.Uservice.getUsers()) {
-        this.exist = this.Uservice.getUsers().find((el: any) => el.name === item.name) ? true : false;
-        if (this.exist) {
-          return
-        }
-        else {
-          const res = this.Uservice.Create(item);
-          this.serverror = res ? false : true;
-          this.user = this.serverror? this.user: {};
-        }
-      }
+    if (Object.keys(item).length >= 7) {
+    this.pending = true;
+     this.Uservice.getUsers().subscribe((data: any) => {
+        const el = this.Uservice.Create(item).then((el: any) => {
+          this.pending = false;
+          this.success = el;
+          this.serverror = el? false : true;
+          this.user = !el ? this.user : {};
+        })
+      })
     }
     else {
       this.formerror = true;
@@ -89,6 +125,5 @@ export class AddComponent {
   }
   ngOnInit() {
     this.display = history.state.data ? history.state.data : '';
-    this.pharmacies = this.Pservice.getAll();
   }
 }

@@ -15,12 +15,15 @@ export class PharmaSearchComponent {
   isLoading: boolean = false; // Pour gérer l'état de chargement
 
   constructor(private pharmaService: PharmaService, private location: Location, public route: Router) {
-    this.pharmacies = this.pharmaService.getAll();
-    if (this.pharmacies) {
+    this.pharmaService.getPharma().subscribe((el: any) => {
+      this.pharmacies = el;
+      if (this.pharmacies) {
         this.isLoading = true;
-    } else {
-      this.pharmacies = [];
-    }
+      } else {
+        this.pharmacies = [];
+      }
+    });
+    
   }
 
   // Fonction pour effectuer la recherche de pharmacies

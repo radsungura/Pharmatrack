@@ -20,26 +20,28 @@ export class UserComponent {
   login(item: any) {
     let res = this.Uservice.login(item);
     this.loged = res;
-    // window.location.reload();
     
+    // window.location.reload();
   }
   register(item: any) {
-    this.Rerror = item.pass !== item.conf ? true : false; 
+    this.Rerror = item.pass !== item.conf ? true : false;
     if (this.Rerror) {
     }
     else {
       if (Object.keys(item).length < 6) {
-            alert("Some fields are not completed correctly !")
-      } else {
+        alert("Some fields are not completed correctly !")
+      }
+      else {
         item.type = "user";
-        const res = this.Uservice.Create(item);
-        if (res) {
-          this.user = {}
-          this.display = 'login';
-        }
-        else {
-            alert("Some fields are not completed correctly !")
-        }
+        this.Uservice.Create(item).then((res: any) => {
+          if (res) {
+            this.user = {}
+            this.display = 'login';
+          }
+          else {
+            alert("Something went wrong retry !")
+          }
+        });
       }
     }
   }

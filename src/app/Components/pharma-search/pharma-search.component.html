@@ -3,7 +3,7 @@
     <h2>Pharmacy search</h2>
     <input type="text" [(ngModel)]="searchQuery" 
     (input)="searchPharmacies()" 
-    placeholder="Pharmacy name..."
+    placeholder="Name or Location ..."
         class="search-input" />
     <div *ngIf="searchQuery" class="search-container">
         <div *ngIf="isLoading" class="loading-spinner">

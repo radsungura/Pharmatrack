@@ -15,12 +15,15 @@ export class MediSearchComponent {
   isLoading: boolean = false; // Pour gérer l'état de chargement
 
   constructor(private medService: MedicationService, public location: Location, public route: Router) {
-    this.medications = this.medService.getAll();
-    if (this.medications) {
-      this.isLoading = true;
-    } else {
-      this.medications = [];
-    }
+    this.medService.getMed().subscribe((el: any) => {
+      if (el) {
+        this.medications = el;
+        this.isLoading = true;
+      }
+      else {
+        this.medications = [];
+      }
+    });
   }
 
   // Fonction de recherche de médicament

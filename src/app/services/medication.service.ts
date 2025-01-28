@@ -17,39 +17,28 @@ export class MedicationService {
   med: any;
   constructor(private db: AngularFirestore) {
     
+    
   }
   getAll() {
       // firebase
-    //  return this.db.collection('medications').snapshotChanges().pipe((actions: any) => {
-    //     return actions.map((a: any) => {
-    //       const data = a.payload.doc.data(); // User data
-    //       const id = a.payload.doc.id; // User document ID
-    //       return { id, ...data }; // Return an object with both the ID and data
-    //     });
-    //   })
-      // localstorage
-     const res = localStorage.getItem('medProd');
-    const data = res? JSON.parse(res): {};
-    return data;
+    return this.db.collection('medications').snapshotChanges().pipe((actions: any) => {
+        return actions.map((a: any) => {
+          const data = a.payload.doc.data(); // User data
+          const id = a.payload.doc.id; // User document ID
+          return { id, ...data }; // Return an object with both the ID and data
+        });
+      })
   }
   // Simuler une recherche dans une API
   searchMedication(query: string): Observable<any[]> {
     // Simuler un filtrage basé sur le nom du médicament
-    const results = this.medications.filter(med => med.name.toLowerCase().includes(query.toLowerCase()));
+    const results = this.medications.filter((med: any) => med.name.toLowerCase().includes(query.toLowerCase()));
     return of(results); // Retourner un Observable
   }
   byPharma(query: string): Observable<any[]> {
     // Simuler un filtrage basé sur le nom du médicament
-    const results = this.medications.filter(med => med.pharma.toLowerCase().includes(query.toLowerCase()));
+    const results = this.medications.filter((med: any) => med.pharma.toLowerCase().includes(query.toLowerCase()));
     return of(results); // Retourner un Observable
-  }
-  getSingle(item: string) {
-    const data = this.medications.find(el => el.code === item);
-    if (data) {
-      return data;
-    } else {
-      return {};
-    }
   }
   getFavorite(item: string) {
     const data: any = localStorage.getItem('medfav');
@@ -92,19 +81,9 @@ export class MedicationService {
     } 
     return favoris;
   }
-  Delete(item: any) {
-      // delete in localstorage
-    const res = this.getMed();
-    if (res) {
-      const data = res.filter((el: any) => el.code !== item.code);
-      localStorage.setItem("medProd", JSON.stringify(data));
-      return true;
-    } else {
-      return false;
-    }
-    
+  Delete(item: any) {    
     //delete in firebase 
-    this.db.collection('medications').doc(item.Id).delete()
+    return this.db.collection('medications').doc(item.code).delete()
       .then(() => {
         console.log('Document successfully deleted!');
       })
@@ -114,40 +93,21 @@ export class MedicationService {
     
   }
   Update(item: any) {
-    const res = this.getMed();
-    if (res) {
-      const data = res.findIndex((el: any) => el.code === item.code);
-      res[data] = item;
-      localStorage.setItem("medProd", JSON.stringify(res));
+    return this.db.collection('medications').doc(item.code).update(item)
+    .then(() => {
+      console.log('Form data saved successfully!');
       return true;
-    } else {
+    })
+    .catch((error) => {
+      console.error('Error saving form data: ', error);
       return false;
-    }
+    });
   }
   Create(item: any) {
-      // localstorage
-    let favoris: any = [];
-    const data = this.getAll()
-    if (data) {
-      favoris = data;
-      favoris.push(item);
-    }
-    else {
-      favoris.push(item);
-    }
-    try {
-      localStorage.setItem('medProd', JSON.stringify(favoris));
-      return true;
-    }
-    catch (error) {
-      console.log("MedError", error);
-      return false;
-    }
       // Save data to Firestore
-    return this.db.collection('medications').add(item)
+    return this.db.collection('medications').doc(item.code).set(item)
     .then(() => {
-      alert('Form data saved successfully!');
-      this.med = {};
+      console.log('Form data saved successfully!');
       return true;
     })
     .catch((error) => {
@@ -156,8 +116,6 @@ export class MedicationService {
     });
   }
   getMed() {
-    const res = localStorage.getItem('medProd');
-    const data = res? JSON.parse(res): false;
-    return data;
+    return  this.db.collection('medications').valueChanges()
   }
 }

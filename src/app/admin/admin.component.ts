@@ -12,13 +12,19 @@ import { UserService } from '../services/user.service';
 })
 export class AdminComponent implements OnInit{
   med: any;
-  display: string;
+  display: string = 'medications';
   pharma: any;
   users: any;
 constructor(public route: Router, public Mservice: MedicationService,public Uservice: UserService, public Pservice: PharmaService, public location: Location) {
-  this.med = this.Mservice.getMed();
-  this.users = this.Uservice.getUsers();
-  this.pharma = this.Pservice.getAll();
+  this.Pservice.getPharma().subscribe((el: any) => {
+    this.pharma = el;
+  });
+  this.Mservice.getMed().subscribe((el: any) => {
+    this.med = el;
+  });
+  this.Uservice.getUsers().subscribe((el: any) => {
+    this.users = el;
+  });
   this.display = 'medications';
   }
   
@@ -40,10 +46,9 @@ constructor(public route: Router, public Mservice: MedicationService,public User
   Mdelete(item: any) {
     const decision = confirm("You are about to detete" + item.name + "!");
     if (decision) {
-      const res = this.Mservice.Delete(item);
-      res ? this.med = this.Mservice.getMed() : this.med;
-    } else {
-      
+      this.Mservice.Delete(item).then((el: any) => {
+        el ? this.med = this.Mservice.getMed() : this.med;
+      });
     }
   }
     // pharmacy
@@ -60,12 +65,12 @@ constructor(public route: Router, public Mservice: MedicationService,public User
     });
   }
   Pdelete(item: any) {
-    const decision = confirm("You are about to detete" + item.name + "!");
+    const decision = confirm(" You are about to detete " + item.name + " !"); 
     if (decision) {
-      const res = this.Pservice.Delete(item);
+      this.Pservice.Delete(item).then((res: any) => {
       res ? this.pharma = this.Pservice.getPharma() : this.pharma;
+    });
     } else {
-      
     }
   }
   Udetails(item: any) {
@@ -83,15 +88,16 @@ constructor(public route: Router, public Mservice: MedicationService,public User
   Udelete(item: any) {
     const decision = confirm(" You are about to detete " + item.name + " !"); 
     if (decision) { 
-      const res = this.Uservice.Delete(item.name);
-      res ? this.users = this.Uservice.getUsers() : this.users;
+      this.Uservice.Delete(item.name).then((el: any) => {
+        el ? this.users = this.Uservice.getUsers() : this.users;
+      });
     }
     else {
     }
   }
   // navigation
   navigate(item: string, cat: string) {
-  this.route.navigate([item], {state: { data: cat }});
+    this.route.navigate([item], {state: { data: cat }});
   }
   goBack() {
     this.location.back(); // Utilisation du service Location pour revenir en arrière dans l'historique
@@ -102,5 +108,6 @@ constructor(public route: Router, public Mservice: MedicationService,public User
   ngOnInit() {
     this.display = history.state.data? history.state.data: 'medications';
     console.log(this.display);
+    
   }
 }

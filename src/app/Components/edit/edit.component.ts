@@ -20,39 +20,64 @@ display: string = "form-med";
   origin: any;
   params: any;
   formerror: boolean = false;
-
-  constructor(public db: AngularFirestore, public route: Router, public Uservice: UserService, public Mservice: MedicationService, public Pservice: PharmaService){}
+  pharmacies: any;
+  serverror: boolean = false;
+  pending: boolean = false;
+  success: boolean = false;
+  constructor(public db: AngularFirestore, public route: Router, public Uservice: UserService, public Mservice: MedicationService, public Pservice: PharmaService) {
+    this.Pservice.getPharma().subscribe((el: any) => {
+      this.pharmacies = el;
+    })
+  }
   open(item: string) {
     this.route.navigate(['admin'], { state :{ data: item}});
   }
-  save(item: {}) {
-    if (Object.keys(item).length === 5) {
-      // Save form data to Firestore
-      this.db.collection('medications').add(item)
-      .then(() => {
-        alert('Form data saved successfully!');
-        console.log('Form data saved successfully!');
-        this.med = {};
-      })
-      .catch((error) => {
-        console.error('Error saving form data: ', error);
+  updateMed(item: any) {
+    console.log("item", item);
+    
+    this.pending = true;
+      // update medication
+    if (Object.keys(item).length >= 6) {
+      this.Mservice.Update(item).then((el: any) => {
+    console.log("element", el);
+        const res = el;
+        this.pending = false;
+        this.serverror = !el ? true : false;
+        res ? this.route.navigate(['admin'], { state: { data: 'medications' } }): this.success = el;
       });
+    }else {
+      this.formerror = true;
     }
   }
-  UpdateMed(item: any) {
-      // update medication in localstorage
-    const res = this.Mservice.Update(item);
-    res? this.route.navigate(['admin'], { state :{ data: 'medications'}}): this.formerror = true;
+  updatePharma(item: any) {
+    this.pending = true;
+    // fibase update pharmacy
+    if (Object.keys(item).length >= 4) {
+      this.Pservice.Update(item).then((el: any) => {
+        const res = el;
+        this.pending = false;
+        this.success = el;
+        this.serverror = !el ? true : false;
+        res ? this.pharma = {} && this.route.navigate(['admin'], { state: { data: 'pharmacies' } }) : this.success = el;
+      })
+    }else {
+      this.formerror = true;
+    }
   }
-   UpdatePharma(item: any) {
-      // update medication in localstorage
-    const res = this.Pservice.Update(item);
-    res? this.route.navigate(['admin'], { state :{ data: 'pharmacies'}}): this.formerror = true;
-     
-  }
-  saveUser(item: any) { 
-   const res = this.Uservice.Update(item);
-    res? this.route.navigate(['admin'], { state :{ data: 'users'}}): this.formerror = true;
+  updateUser(item: any) { 
+    this.pending = true;
+    // fibase update user
+    if (Object.keys(item).length == 7) {
+      this.Uservice.Update(item).then((el: any) => {
+        const res = el;
+        this.pending = false;
+        this.success = el;
+        this.serverror = el ? false : true;
+        res ? this.route.navigate(['admin'], { state: { data: 'users' } }) : this.success = true;
+      })
+    } else {
+      this.formerror = true;
+    }
   }
   ngOnInit() {
     this.params = history.state.data;

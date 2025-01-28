@@ -7,7 +7,7 @@
     <div class="form">
         <div class="field">
             <label for="code">Code</label>
-            <input name="code" [(ngModel)]="med.code" type="text" required>
+            <input name="code" [(ngModel)]="med.code" (ngModelChange)="checkCode(med.code, 'medication')" type="text" required>
         </div>
             <span *ngIf="exist" class="form-error">Medication code allready exist !</span>
         <div class="field">
@@ -33,14 +33,18 @@
             <textarea name="des" [(ngModel)]="med.desc" type="text" required></textarea>
         </div>
         <div class="field">
-            <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>
+            <label *ngIf="pending">
+                <img class="spin" src="../../../assets/spin.png" alt="">
+            </label>
         </div>
         <div class="field">
+            <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>
             <label *ngIf="formerror" class="form-error">Some field are not completed correctly !</label>
+            <label *ngIf="success" class="form-success">Successfull !</label>
         </div>
         <div class="footer">
             <button type="submit" class="register btn" (click)="med = {}">Clear</button>
-            <button type="submit" class="login btn" (click)="saveMed(med)">Save</button>
+            <button type="submit" class="login btn" (click)="saveMed(med)" [disabled]="saveBtn" >Save</button>
         </div>
     </div>
 </div>
@@ -53,7 +57,7 @@
     <div class="form">
         <div class="field">
             <label for="code">Code</label>
-            <input name="code" [(ngModel)]="pharma.code" type="text" required>
+            <input name="code" [(ngModel)]="pharma.code"  type="text" (ngModelChange)="checkCode(pharma.code, 'pharmacy')" required>
         </div>
             <span *ngIf="exist" class="form-error">Code allready exist !</span>
 
@@ -70,14 +74,18 @@
             <input name="address" [(ngModel)]="pharma.address" type="text" required>
         </div>
         <div class="field">
-            <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>
+            <label *ngIf="pending">
+                <img class="spin" src="../../../assets/spin.png" alt="">
+            </label>
         </div>
         <div class="field">
+            <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>
             <label *ngIf="formerror" class="form-error">Some field are not completed correctly !</label>
+            <label *ngIf="success" class="form-success">Successfull !</label>
         </div>
         <div class="footer">
             <button type="submit" class="register btn" (click)="pharma = {}">Clear</button>
-            <button type="submit" class="login btn" (click)="savePharma(pharma)">Save</button>
+            <button type="submit" class="login btn" (click)="savePharma(pharma)" [disabled]="saveBtn" >Save</button>
         </div>
     </div>
 </div>
@@ -90,7 +98,7 @@
     <div class="form">
         <div class="field">
             <label for="name">User Name</label>
-            <input name="name" [(ngModel)]="user.name" type="text" required>
+            <input name="name" [(ngModel)]="user.name" type="text" (ngModelChange)="checkCode(users.name,'user')" required>
         </div>
         <span *ngIf="exist" class="form-error">UnserName allready exist !</span>
         <div class="field">
@@ -118,14 +126,18 @@
             <input name="conf" [(ngModel)]="user.conf" type="password" required>
         </div>
         <div class="field">
-            <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>
+            <label *ngIf="pending">
+                <img class="spin" src="../../../assets/spin.png" alt="">
+            </label>
         </div>
         <div class="field">
+            <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>
             <label *ngIf="formerror" class="form-error">Some field are not completed correctly !</label>
+            <label *ngIf="success" class="form-success">Successfull !</label>
         </div>
         <div class="footer">
             <button type="submit" class="register btn" (click)="user = {}">Clear</button>
-            <button type="submit" class="login btn" (click)="saveUser(user)">Save</button>
+            <button type="submit" class="login btn" (click)="saveUser(user)" [disabled]="saveBtn" >Save</button>
         </div>
     </div>
 </div>

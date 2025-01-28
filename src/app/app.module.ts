@@ -23,13 +23,13 @@ import { EditComponent } from './Components/edit/edit.component';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDRmQOkCbF1liRNSZFM--t6MdBB2gp-EfA",
-  authDomain: "e-heals.firebaseapp.com",
-  projectId: "e-heals",
-  storageBucket: "e-heals.firebasestorage.app",
-  messagingSenderId: "109685101237",
-  appId: "1:109685101237:web:00d343f3106f32c7a8a4fc",
-  measurementId: "G-8Q8VPL8270"
+  apiKey: "AIzaSyCCciLgV6xmSZfrfBLFz9WIMbfBPq9Ubyc",
+  authDomain: "e-healler.firebaseapp.com",
+  projectId: "e-healler",
+  storageBucket: "e-healler.firebasestorage.app",
+  messagingSenderId: "926170034849",
+  appId: "1:926170034849:web:ef3f7d7d2f59f4a97eb6e0",
+  measurementId: "G-L52X8DLCCJ"
 };
 
 @NgModule({
