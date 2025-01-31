@@ -1,0 +1,62 @@
+<div *ngIf="display == 'login'" class="main card">
+    <div class="title">
+        <h4>Login</h4>
+    </div>
+    <div class="form">
+        <div class="field">
+            <label for="uname">UserName</label>
+            <input name="uname" [(ngModel)]="user.name" type="text" required>
+        </div>
+        <div class="field">
+            <label for="name">Password</label>
+            <input name="upass" [(ngModel)]="user.pass" type="password" required>
+        </div>
+        <div class="field">
+            <label *ngIf="loged" class="form-error">Incorrect Credentials !</label>
+        </div>
+        <div class="footer">
+            <button type="submit" class="clear btn" (click)="display = 'register'">Register</button>
+            <button type="submit" class="login btn" (click)="login(user)">Login</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="display == 'register'" class="main register">
+    <div class="title">
+        <h4>Register</h4>
+    </div>
+    <div class="form">
+        <div class="field">
+            <label for="name">User Name</label>
+            <input name="name" [(ngModel)]="user.name" type="text" required>
+        </div>
+        <div class="field">
+            <label for="fullname">Full Name</label>
+            <input name="fullname" [(ngModel)]="user.fullname" type="text" required>
+        </div>
+        <div class="field">
+            <label for="mail">E-mail</label>
+            <input name="mail" [(ngModel)]="user.mail" type="mail" required>
+        </div>
+        <div class="field">
+            <label for="tel">Tel</label>
+            <input name="tel" [(ngModel)]="user.tel" type="phone" required>
+        </div>
+        <div class="field">
+            <label for="name">Password</label>
+            <input name="upass" [(ngModel)]="user.pass" type="password" required>
+        </div>
+        <div class="field">
+            <label for="name">Confirm</label>
+            <input name="upass" [(ngModel)]="user.conf" type="password" required>
+        </div>
+        <div class="field">
+            <label *ngIf="Rerror" class="form-error" >Password must much !</label>
+        </div>
+        <div class="footer">
+            <button type="reset" class="clear btn" (click)="user = {}">clear</button>
+            <button type="submit" class="login btn" (click)="register(user)">Save</button>
+        </div>
+        <span class="login-span" (click)="display = 'login'">login</span>
+    </div>
+</div>

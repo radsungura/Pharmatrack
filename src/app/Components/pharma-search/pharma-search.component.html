@@ -1,0 +1,41 @@
+<button class="back-button" (click)="goBack()">Back</button>
+<div class="main">
+    <h2>Pharmacy search</h2>
+    <input type="text" [(ngModel)]="searchQuery" 
+    (input)="searchPharmacies()" 
+    placeholder="Name or Location ..."
+        class="search-input" />
+    <div *ngIf="searchQuery" class="search-container">
+        <div *ngIf="isLoading" class="loading-spinner">
+            <p>Chargement...</p>
+        </div>
+
+        <div *ngIf="search.length > 0">
+            <!-- <h3>Résultats :</h3> -->
+            <ul>
+                <li *ngFor="let pharmacy of search" (click)="details(pharmacy)">
+                    <h4>{{ pharmacy.name }}</h4>
+                    <!-- <p>{{ pharmacy.address }}</p> -->
+                </li>
+            </ul>
+        </div>
+
+        <div *ngIf="search.length === 0 && !isLoading">
+            <p>No Pharmacy found.</p>
+        </div>
+    </div>
+    <div class="list">
+        <div *ngIf="pharmacies.length > 0">
+            <!-- <h3>Résultats :</h3> -->
+            <ul>
+                <li *ngFor="let pharmacy of pharmacies" (click)="details(pharmacy)">
+                    <span class="img">🏥</span>
+                    <span>
+                        <h4>{{ pharmacy.name }}</h4>
+                        <p>{{ pharmacy.address }}</p>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

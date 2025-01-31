@@ -1,0 +1,46 @@
+<div class="dashboard-container">
+        <!-- Main Content -->
+    <main *ngIf="display == 'admin'" class="main-content">
+        <header class="dashboard-header">
+            <h1>Management</h1>
+        </header>
+        <section class="stats-section" (click)="open('admin', 'medications')">
+            <div class="stat-card">
+                <h3>{{ med }}</h3>
+                <p>Medications</p>
+            </div>
+            <div class="stat-card" (click)="open('admin', 'pharmacies')">
+                <h3>{{ pharma }}</h3>
+                <p>Pharmacies</p>
+            </div>
+            <div class="stat-card" (click)="open('admin', 'users')">
+                <h3>{{ user }}</h3>
+                <p>Users</p>
+            </div>
+        </section>
+        <section class="quick-actions">
+            <h2>Actions rapides</h2>
+            <button class="action-button" (click)="open('add', 'medication')">Add medication</button>
+            <button class="action-button" (click)="open('add', 'pharmacy')">Add pharmacy</button>
+        </section>
+    </main>
+    <main *ngIf="display !== 'admin'" class="main-content">
+        <header class="dashboard-header">
+            <h1>Dashboard</h1>
+        </header>
+        <section class="stats-section" (click)="open('medication', 'medications')">
+            <div class="stat-card">
+                <h3>{{ med }}</h3>
+                <p>Medications</p>
+            </div>
+            <div class="stat-card" (click)="open('pharmacy', 'pharmacies')">
+                <h3>{{ pharma }}</h3>
+                <p>Pharmacies</p>
+            </div>
+            <div class="stat-card" *ngIf="Uservice.getLoged()" (click)="open('favorite', 'medications')">
+                <h3>{{ fav }}</h3>
+                <p>Favorites</p>
+            </div>
+        </section>
+    </main>
+</div>

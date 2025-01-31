@@ -1,0 +1,132 @@
+<div *ngIf="display == 'medications'" class="main card edit-form">
+    <button class="close-btn" (click)="open('medications')">X</button>
+    <div class="title">
+        <h4>Modify Medication</h4>
+    </div>
+    <div class="form">
+        <div class="field">
+            <label for="code">Code</label>
+            <input name="code" [(ngModel)]="med.code" type="text" required disabled>
+        </div>
+        <div class="field">
+            <label for="name">Name</label>
+            <input name="name" [(ngModel)]="med.name" type="text" required>
+        </div>
+        <div class="field">
+            <label for="qty">Quantity</label>
+            <input name="qty" [(ngModel)]="med.qty" type="number" required>
+        </div>
+        <div class="field">
+            <label for="pharma">Pharmacy</label>
+            <select name="pharma" [(ngModel)]="med.pharma" type="text" required>
+                <option *ngFor="let item of pharmacies" [value]="item.code">{{item.name}}</option>
+            </select>
+        </div>
+        <div class="field">
+            <label for="price">Price</label>
+            <input name="price" [(ngModel)]="med.price" type="number" required>
+        </div>
+        <div class="field">
+            <label for="desc">Descriptions</label>
+            <textarea name="desc" [(ngModel)]="med.desc" type="text" required></textarea>
+        </div>
+        <div class="field">
+            <label *ngIf="pending">
+                <img class="spin" src="../../../assets/spin.png" alt="">
+            </label>
+        </div>
+        <div class="field">
+            <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>
+            <label *ngIf="formerror" class="form-error">Some field are not completed correctly !</label>
+            <label *ngIf="success" class="form-success">Successfull !</label>
+        </div>
+        <div class="footer">
+            <button type="submit" class="register btn" (click)="med = {}">Clear</button>
+            <button type="submit" class="login btn" (click)="updateMed(med)">Save</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="display == 'pharmacy'" class="main card edit-form">
+    <button class="close-btn" (click)="open('pharmacies')">X</button>
+    <div class="title">
+        <h4>Modify Pharmacy</h4>
+    </div>
+    <div class="form">
+        <div class="field">
+            <label for="code">Code</label>
+            <input name="code" [(ngModel)]="pharma.code" type="text" required disabled>
+        </div>
+        <div class="field">
+            <label for="name">Name</label>
+            <input name="name" [(ngModel)]="pharma.name" type="text" required>
+        </div>
+        <div class="field">
+            <label for="tel">Tel</label>
+            <input name="tel" [(ngModel)]="pharma.tel" type="phone" required>
+        </div>
+        <div class="field">
+            <label for="address">Address</label>
+            <input name="address" [(ngModel)]="pharma.address" type="text" required>
+        </div>
+        <div class="field">
+            <label *ngIf="pending">
+                <img class="spin" src="../../../assets/spin.png" alt="">
+            </label>
+        </div>
+        <div class="field">
+            <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>
+            <label *ngIf="formerror" class="form-error">Some field are not completed correctly !</label>
+            <label *ngIf="success" class="form-success">Successfull !</label>
+        </div>
+        <div class="footer">
+            <button type="submit" class="register btn" (click)="pharma = {}">Clear</button>
+            <button type="submit" class="login btn" (click)="updatePharma(pharma)">Save</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="display == 'user'" class="main card edit-form">
+    <button class="close-btn" (click)="open('users')">X</button>
+    <div class="title">
+        <h4>Modify User</h4>
+    </div>
+    <div class="form">
+        <div class="field">
+            <label for="uname">User Name</label>
+            <input name="uname" [(ngModel)]="user.name" type="text" required disabled>
+        </div>
+        <div class="field">
+            <label for="ufull">Full Name</label>
+            <input name="ufull" [(ngModel)]="user.fullname" type="text" required>
+        </div>
+        <div class="field">
+            <label for="umail">E-mail</label>
+            <input name="umail" [(ngModel)]="user.mail" type="email" required>
+        </div>
+        <div class="field">
+            <label for="utel">Phone</label>
+            <input name="utel" [(ngModel)]="user.tel" type="phone" required>
+        </div>
+        <div class="field">
+            <label for="type">Type</label>
+            <input name="type" [(ngModel)]="user.type" type="text" required>
+        </div>
+        <div class="field">
+            <label for="upass">Pass</label>
+            <input name="upass" [(ngModel)]="user.pass" type="password" required>
+        </div>
+        <div class="field">
+            <label *ngIf="pending">
+                <img class="spin" src="../../../assets/spin.png" alt="">
+            </label>
+        </div>
+        <div class="field">
+            <label *ngIf="serverror" class="form-error">Something went wrong, try to repeat !</label>
+            <label *ngIf="formerror" class="form-error">Some field are not completed correctly !</label>
+            <label *ngIf="success" class="form-success">Successfull !</label>
+        </div>
+        <div class="footer">
+            <button type="reset" class="register btn" (click)="user = {}">Clear</button>
+            <button type="submit" class="login btn" (click)="updateUser(user)">Save</button>
+        </div>
+    </div>
+</div>
