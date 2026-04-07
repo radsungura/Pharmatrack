@@ -1,4 +1,4 @@
-<button class="back btn" (click)="goBack()">Back</button>
+<!-- <button class="back btn" (click)="goBack()">Back</button>
 <div *ngIf="display == 'medication'" class="card">
     <div class="buttons">
             <div class="right">
@@ -11,7 +11,7 @@
     <div class="title">{{ med.name }}</div>
     <div class="container">
         <div class="img">
-            <!-- <img src="../../../favicon.ico"> -->
+             <img src="../../../favicon.ico">
         </div>
         <p>
             <span><label>Pharmacy: </label> {{ med.pharma.name }}</span>
@@ -46,7 +46,7 @@
     <label style="color: rgb(6, 100, 6);">Medications</label><br>
 
     <span *ngIf="pharma.med.length > 0">
-        <!-- <h3>Result :</h3> -->
+        <h3>Result :</h3> 
         <ul>
             <li *ngFor="let medication of pharma.med">
                 <h4>{{ medication.name }}</h4>
@@ -78,4 +78,68 @@
         </p>
 
     </div>
+</div> -->
+
+<!-- ========================= -->
+
+<div class="details-container">
+
+  <!-- TITLE -->
+  <div class="header">
+    <h1>{{service.name}}</h1>
+    <div class="meta">
+      ⭐ {{service.rating}} ({{service.reviews}} avis) • {{service.location}}
+    </div>
+  </div>
+
+  <!-- IMAGES -->
+  <div class="gallery">
+    <!-- <img *ngFor="let img of service.images" [src]="img"> -->
+    <img  [src]="service.image">
+    <img  [src]="service.image">
+    <img  [src]="service.image">
+  </div>
+
+  <div class="content">
+
+    <!-- DESCRIPTION -->
+    <div class="left">
+
+      <h2>Description</h2>
+      <p>
+        {{service.desc}}
+      </p>
+
+      <h2>Services proposés</h2>
+
+      <ul>
+        <!-- <li *ngFor="let s of service.services"> -->
+        <li>
+          ✔ {{service.services}}
+        </li>
+      </ul>
+
+    </div>
+
+    <!-- BOOKING BOX -->
+    <div class="right">
+
+      <div class="booking-card">
+
+        <h3>{{service.price}} Fbu / événement</h3>
+
+        <button class="btn-contact">
+          Contacter le prestataire
+        </button>
+
+        <button class="btn-reserve">
+          Réserver
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>

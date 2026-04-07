@@ -1,68 +1,75 @@
-.card {
-  margin: 50px;
-  padding: 50px;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  background: #e2f2ff;
-.container{
-    display: flex;
-    // justify-content: space-between;
-    .img{
-        font-size: 100px;
-      top: -20px;
-      position: relative;
-      margin-right: 50px;
-        img{
-           width: 100%;
-        }
-    }
-}
+
+
+// ==================
+
+.details-container{
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
 }
 
-.title {
-  font-size: 20px;
-font-weight: bolder;
+.header h1{
+  margin-bottom: 5px;
 }
-p {
-  font-size: 20px;
-  color: #666;
+
+.meta{
+  color: #555;
+}
+
+.gallery{
   display: grid;
-  
-}
-label{
-    font-weight: bold;
-    color: black;
-    font-size: medium;
-}
-//   buttons
-.btn {
-  padding: 10px 15px;
-  margin-bottom: 20px;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  margin: 20px 0;
 }
 
-.btn:hover {
-  background-color: #0056b3;
+.gallery img{
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-.back {
-background-color: #003669;
+.content{
+  display: flex;
+  gap: 40px;
 }
-.add-fav {
-background-color: #bd0000;
-}
-.phone {
-background-color: #006946;
-}
+
 .left{
-    float: left;
-    margin: 20px;
+  flex: 2;
 }
+
 .right{
-    float: right;
-    display: grid;
+  flex: 1;
+}
+
+.booking-card{
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  position: sticky;
+  top: 20px;
+}
+
+.booking-card h3{
+  margin-bottom: 20px;
+}
+
+.btn-contact{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+}
+
+.btn-reserve{
+  width: 100%;
+  padding: 10px;
+  background: #28a745;
+  border: none;
+  color: white;
+  border-radius: 5px;
 }

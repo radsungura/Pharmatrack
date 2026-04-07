@@ -2,7 +2,7 @@
     <aside id="sidebar" class="sidebar" [ngClass]="{'sidebar-open': isSidebarVisible, 'hidden': !isSidebarVisible}">
         
         <div class="header" (click)="toggle()">
-            <h2 class="text">Pharmatrack</h2>
+            <h2 class="text">Skilla</h2>
             <!-- <button class="menu-toggle" >
                 <span></span>
                 <span></span>
@@ -11,8 +11,10 @@
         </div>
         <ul>
             <li>🏠<span class="text" (click)="open('dashboard')">Dashboard</span></li>
-            <li>💊 <span class="text" (click)="open('medication')">Medications</span></li>
-            <li>🏥 <span class="text" (click)="open('pharmacy')">Pharmacy</span></li>
+            <li>🛍️<span class="text" (click)="open('providers')">Prestataires</span></li>
+            <li>🏬<span class="text" (click)="open('places')">Places</span></li>
+            <!-- <li>🛒<span class="text" (click)="open('clients')">Clients</span></li> -->
+            <li>👤 <span class="text" (click)="open('users')">Users</span></li>
             <li *ngIf="user.type == 'admin'">⚙️ <span class="text" (click)="open('admin')">Settings</span></li>
             <li *ngIf="user.type !== 'admin'">✅ <span class="text"  (click)="open('favorite')">Favorite</span></li>
         </ul>

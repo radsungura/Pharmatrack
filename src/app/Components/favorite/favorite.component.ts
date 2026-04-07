@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MedicationService } from 'src/app/services/medication.service';
+import { ProviderService } from 'src/app/services/providers.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
@@ -16,7 +16,7 @@ export class FavoriteComponent {
   isLoading: boolean = false; // Pour gérer l'état de chargement
   user: any;
 
-  constructor(private medService: MedicationService, private Uservice: UserService, public location:Location, public route: Router) {
+  constructor(private medService: ProviderService, private Uservice: UserService, public location:Location, public route: Router) {
     this.user = this.Uservice.getUser();
     this.medications = this.medService.getFavorite(this.user.name);
     console.log("fav component ", this.medications, this.user.name);
@@ -31,7 +31,7 @@ export class FavoriteComponent {
   searchMedications() {
     if (this.searchQuery.trim() !== '') {
       this.isLoading = true;
-      this.medService.searchMedication(this.searchQuery).subscribe(
+      this.medService.searchprovider(this.searchQuery).subscribe(
         (results: any) => {
           this.search = results;
           this.isLoading = false;

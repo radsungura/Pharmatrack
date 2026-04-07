@@ -78,17 +78,20 @@ export class UserService {
     return data;
   }
   Create(item: any) {
+    
   // localstorage
-    let users: any = [];
+    let users: any[] = [];
     let success = true;
     const res = this.getUsers()
     const data: any = res;
+    console.log(users);
+
     if (data) {
       users = data;
       users.push(item);
     }
     else {
-      users.push(item);
+      users = item;
     }
     try {
       localStorage.setItem('medusers', JSON.stringify(users));

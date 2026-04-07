@@ -16,7 +16,7 @@ export class AppComponent {
   constructor(public Uservice: UserService, public route: Router) {
     this.user = this.Uservice.getUser();
     this.loged = this.Uservice.getLoged();
-    this.display = this.loged ? 'dashboard' : 'home';
+    this.display = this.loged ? 'dashboard' : 'dashboard';
 
    
   }

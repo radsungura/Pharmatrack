@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { PharmaService } from 'src/app/services/pharma.service';
-import { MedicationService } from 'src/app/services/medication.service';
+import { ProviderService } from 'src/app/services/providers.service';
 
 @Component({
   selector: 'app-add',
@@ -20,7 +20,8 @@ export class AddComponent {
   user: any;
   pharmacies: any;
   exist: boolean = false;
-  constructor(public db: AngularFirestore, public route: Router, public Uservice: UserService, public Pservice: PharmaService,public Mservice: MedicationService   ) {
+  
+  constructor(public db: AngularFirestore, public route: Router, public Uservice: UserService, public Pservice: PharmaService,public Mservice: ProviderService   ) {
     this.med = {}
     this.pharma = {}
     this.user = {}
@@ -33,23 +34,23 @@ export class AddComponent {
     this.route.navigate(['admin']);
   }
   saveMed(item: any) {
-    if (Object.keys(item).length == 6) {
-      if (this.Mservice.getMed()) {
-        this.exist = this.Mservice.getMed().find((el: any) => el.code === item.code )? true : false;
-      }
-      if (this.exist) {
-        return
-      }
-      else {
-        const res = this.Mservice.Create(item);
-        this.serverror = res ? false: true;
-        this.med = this.serverror? this.med: {};
-      }
-    }
-    else {
-      this.formerror = true;
-    }
-    return this.formerror || this.serverror ? false : true;
+    // if (Object.keys(item).length == 6) {
+    //   if (this.Mservice.getAll()) {
+    //     this.exist = this.Mservice.getAll().find((el: any) => el.code === item.code )? true : false;
+    //   }
+    //   if (this.exist) {
+    //     return
+    //   }
+    //   else {
+    //     const res = this.Mservice.Create(item);
+    //     this.serverror = res ? false: true;
+    //     this.med = this.serverror? this.med: {};
+    //   }
+    // }
+    // else {
+    //   this.formerror = true;
+    // }
+    // return this.formerror || this.serverror ? false : true;
   }
   savePharma(item: any) {
     if (Object.keys(item).length == 4) {

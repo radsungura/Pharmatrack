@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { MedicationService } from 'src/app/services/medication.service';
+import { ProviderService } from 'src/app/services/providers.service';
 import { PharmaService } from 'src/app/services/pharma.service';
 
 @Component({
@@ -21,7 +21,7 @@ display: string = "form-med";
   params: any;
   formerror: boolean = false;
 
-  constructor(public db: AngularFirestore, public route: Router, public Uservice: UserService, public Mservice: MedicationService, public Pservice: PharmaService){}
+  constructor(public db: AngularFirestore, public route: Router, public Uservice: UserService, public Mservice: ProviderService, public Pservice: PharmaService){}
   open(item: string) {
     this.route.navigate(['admin'], { state :{ data: item}});
   }

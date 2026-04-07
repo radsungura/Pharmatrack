@@ -1,9 +1,9 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { PharmaService } from 'src/app/services/pharma.service';
 import { Location } from '@angular/common';
-import { MedicationService } from 'src/app/services/medication.service';
+import { ProviderService } from 'src/app/services/providers.service';
 import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-details',
@@ -16,7 +16,29 @@ export class DetailsComponent implements OnInit{
   pharma: any;
   user: any;
   display: string = '';
-  constructor(public route: Router, public phaservice: PharmaService,public Uservice: UserService,public medservice: MedicationService, public location: Location) {
+  data: any;
+  service: any;
+  //  service = {
+  //   name: 'Royal Band Bujumbura',
+  //   category: 'Band Musical',
+  //   location: 'Bujumbura',
+  //   rating: 4.7,
+  //   reviews: 120,
+  //   price: 250,
+  //   description: 'Groupe musical professionnel pour mariages, anniversaires et soirées privées.',
+  //   images: [
+  //     'assets/band1.jpeg',
+  //     'assets/band2.jpeg',
+  //     'assets/band3.jpeg'
+  //   ],
+  //   services: [
+  //     'Animation mariage',
+  //     'Soirée privée',
+  //     'Anniversaire',
+  //     'Concert live'
+  //   ]
+  // }
+  constructor(private router: ActivatedRoute, public route: Router, public phaservice: PharmaService,public Uservice: UserService,public medservice: ProviderService, public location: Location) {
     this.user = Uservice.getUser();
   }
    goBack() {
@@ -35,7 +57,21 @@ export class DetailsComponent implements OnInit{
     this.tel = this.user.tel? true: false;
   }
   async ngOnInit() {
+  //   this.router.paramMap.subscribe(params => {
+  //   this.data = params.params!;
+  //   console.log("this.data", this.data, params);
+  // });
+
     const data = history.state.data;
+    if (!data) {
+      this.route.navigate(['providers']);
+      return;
+    }
+    if (history.state.cat == 'provider') {
+      this.display = 'provider';
+      this.service = data;
+      console.log('state', history.state.data, this.user);
+    }
     if (data.cat == 'med') {
       this.display = 'medication';
 
@@ -44,7 +80,8 @@ export class DetailsComponent implements OnInit{
       this.med.pharma = pharma;
 
       console.log(this.med);
-      
+
+    
     }
     else if (data.cat == 'pharma') {
       this.display = 'pharmacy';
@@ -61,6 +98,6 @@ export class DetailsComponent implements OnInit{
     }
     else {
     }
-    console.log('state', history.state.data, this.user);
+    
   }
 }

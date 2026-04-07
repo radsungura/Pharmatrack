@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MediSearchComponent } from './Components/medi-search/medi-search.component';
-import { PharmaSearchComponent } from './Components/pharma-search/pharma-search.component';
+import { ProvidersComponent } from './Components/providers/providers.component';
 import { DetailsComponent } from './Components/details/details.component';
 import { UserComponent } from './Components/user/user.component';
 import { AddComponent } from './Components/add/add.component';
 import { AdminComponent } from './admin/admin.component';
 import { FavoriteComponent } from './Components/favorite/favorite.component';
 import { EditComponent } from './Components/edit/edit.component';
+import { ClientsComponent } from './Components/clients/clients.component';
+import { PlacesComponent } from './Components/places/places.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
     {
@@ -17,7 +19,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'user',
+    path: 'users',
     component: UserComponent
   },
   {
@@ -41,16 +43,25 @@ const routes: Routes = [
     component: AddComponent
   },
    {
-    path: 'medication',
-    component: MediSearchComponent
+    path: 'providers',
+    component: ProvidersComponent
   },
    {
-    path: 'pharmacy',
-    component: PharmaSearchComponent
+    path: 'clients',
+    component: ClientsComponent
   },
    {
+    path: 'places',
+    component: PlacesComponent
+  },
+   {
+    // path: 'details/:id',
     path: 'details',
     component: DetailsComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
   }
 ];
 

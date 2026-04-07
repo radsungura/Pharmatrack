@@ -1,0 +1,86 @@
+<!-- <button class="back-button" (click)="goBack()">Back</button> -->
+<div class="main">
+    <h2>Prestataires</h2>
+    <input type="text" [(ngModel)]="searchQuery" 
+    (input)="searchProviders()" 
+    placeholder="Nom du prestataires ..."
+        class="search-input" />
+    <div *ngIf="searchQuery" class="search-container">
+        <div *ngIf="isLoading" class="loading-spinner">
+            <p>Loading...</p>
+        </div>
+
+        <div *ngIf="search.length > 0">
+            <!-- <h3>Result :</h3> -->
+            <ul>
+                <li *ngFor="let Provider of search" (click)="details(Provider)">
+                    <h4>{{ Provider.name }}</h4>
+                    <!-- <p>{{ Provider.desc }}</p> -->
+                </li>
+            </ul>
+        </div>
+
+        <div *ngIf="Providers.length === 0 && !isLoading">
+            <p>No Provider found.</p>
+        </div>
+    </div>
+    <!-- <div class="list">
+        <div *ngIf="Providers.length > 0">
+            < <h3>Result :</h3>
+            <ul>
+                <li *ngFor="let Provider of Providers" (click)="details(Provider)">
+                    <h4>{{ Provider.name }}</h4>
+                    <p>{{ Provider.desc }}</p>
+                </li>
+            </ul>
+        </div>
+    </div> -->
+    <div class="list fromgpt" *ngFor="let p of Providers">
+        <div class="service-card">
+
+            <div class="image-container">
+                <img [src]="p.image" alt="service">
+                <div class="favorite">❤</div>
+            </div>
+
+            <div class="service-info">
+
+                <h2 class="title">
+                {{p.name}}
+                </h2>
+
+                <div class="category">
+                {{p.services}} • {{p.address}}
+                </div>
+
+                <p class="description">
+                {{p.desc}}
+                </p>
+
+            </div>
+
+            <div class="service-rating">
+
+                <div class="rating-box">
+                <span class="label">Excellent</span>
+                <span class="score">{{p.rating}}</span>
+                </div>
+
+                <div class="reviews">
+                {{p.reviews}} avis
+                </div>
+
+                <div class="price">
+                À partir de <strong>{{p.price}} FBU</strong>
+                </div>
+
+                <!-- <button class="btn-details" [routerLink]="['/details', p.id]"> -->
+                <button class="btn-details" [routerLink]="['/details', p]" [state]="{data: p, cat: 'provider'}">
+                Voir les détails
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>

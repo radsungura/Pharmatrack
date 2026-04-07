@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MedicationService } from '../services/medication.service';
+import { ProviderService } from '../services/providers.service';
 import { Location } from '@angular/common';
 import { PharmaService } from '../services/pharma.service';
 import { UserService } from '../services/user.service';
@@ -15,8 +15,8 @@ export class AdminComponent implements OnInit{
   display: string;
   pharma: any;
   users: any;
-constructor(public route: Router, public Mservice: MedicationService,public Uservice: UserService, public Pservice: PharmaService, public location: Location) {
-  this.med = this.Mservice.getMed();
+constructor(public route: Router, public Mservice: ProviderService,public Uservice: UserService, public Pservice: PharmaService, public location: Location) {
+  this.med = this.Mservice.getAll();
   this.users = this.Uservice.getUsers();
   this.pharma = this.Pservice.getAll();
   this.display = 'medications';
@@ -41,7 +41,7 @@ constructor(public route: Router, public Mservice: MedicationService,public User
     const decision = confirm("You are about to detete" + item.name + "!");
     if (decision) {
       const res = this.Mservice.Delete(item);
-      res ? this.med = this.Mservice.getMed() : this.med;
+      res ? this.med = this.Mservice.getAll() : this.med;
     } else {
       
     }
